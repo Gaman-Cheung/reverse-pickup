@@ -1,0 +1,35 @@
+{
+  "id": "./倒车接人计算器.html",
+  "name": "倒车接人计算器",
+  "short_name": "倒车接人",
+  "description": "用上涨日回撤位整理观察计划，并核对大盘、板块与个股环境。",
+  "lang": "zh-CN",
+  "dir": "ltr",
+  "start_url": "./倒车接人计算器.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#f8f9fa",
+  "theme_color": "#f8f9fa",
+  "categories": ["finance", "productivity", "utilities"],
+  "icons": [
+    {
+      "src": "./reverse-pickup-icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "./reverse-pickup-icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "./reverse-pickup-icon-512-maskable.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

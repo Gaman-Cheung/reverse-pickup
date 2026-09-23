@@ -1,0 +1,459 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="color-scheme" content="light">
+  <meta name="description" content="倒车接人计算器：用上涨日回撤位整理观察计划，并提醒你核对大盘、板块与个股环境。">
+  <meta name="theme-color" content="#f8f9fa">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="倒车接人">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <title>倒车接人计算器</title>
+  <link rel="manifest" href="./reverse-pickup.webmanifest">
+  <link rel="apple-touch-icon" href="./reverse-pickup-icon-192.png">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23202124'/%3E%3Cpath d='M15 17h25c5 0 9 4 9 9v22H15z' fill='none' stroke='%23fbbc05' stroke-width='3'/%3E%3Cpath d='M21 24h13M21 31h7M42 17l6-5 3 8M45 12l-5 1' fill='none' stroke='%23fbbc05' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M22 39h5v5h-5zM31 39h5v5h-5zM40 39h5v5h-5zM22 47h5v5h-5zM31 47h5v5h-5zM40 47h5v5h-5z' fill='%23fbbc05'/%3E%3Cpath d='M46 29l5-5 5 5' fill='none' stroke='%23fbbc05' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+  <style>
+    /* Standalone compatibility layer derived from DESIGN_AGENT_GUIDE.md. */
+    :root {
+      --ref-blue-50:#e8f0fe; --ref-blue-100:#d2e3fc; --ref-blue-500:#4285f4; --ref-blue-600:#1a73e8; --ref-blue-800:#1557b0;
+      --ref-red-50:#fce8e6; --ref-red-500:#ea4335; --ref-red-700:#c5221f;
+      --ref-yellow-50:#fef7e0; --ref-yellow-500:#fbbc05; --ref-yellow-800:#b06000;
+      --ref-green-50:#e6f4ea; --ref-green-100:#ceead6; --ref-green-500:#34a853; --ref-green-700:#188038; --ref-green-800:#137333;
+      --ref-neutral-0:#fff; --ref-neutral-25:#fcfcfc; --ref-neutral-50:#f8f9fa; --ref-neutral-100:#f1f3f4; --ref-neutral-200:#e8eaed; --ref-neutral-300:#dadce0; --ref-neutral-500:#9aa0a6; --ref-neutral-600:#80868b; --ref-neutral-700:#5f6368; --ref-neutral-900:#202124;
+      --color-brand:var(--ref-blue-500); --color-primary:var(--ref-blue-500); --color-primary-action:var(--ref-blue-600); --color-primary-hover:var(--ref-blue-800); --color-primary-soft:var(--ref-blue-50); --color-primary-soft-strong:var(--ref-blue-100); --color-success:var(--ref-green-500); --color-success-strong:var(--ref-green-700); --color-success-text:var(--ref-green-800); --color-success-soft:var(--ref-green-50); --color-warning:var(--ref-yellow-500); --color-warning-text:var(--ref-yellow-800); --color-warning-soft:var(--ref-yellow-50); --color-danger:var(--ref-red-500); --color-danger-text:var(--ref-red-700); --color-danger-soft:var(--ref-red-50);
+      --color-background:var(--ref-neutral-50); --color-surface:var(--ref-neutral-0); --color-surface-subtle:var(--ref-neutral-25); --color-surface-muted:var(--ref-neutral-100); --color-surface-hover:var(--ref-neutral-100); --color-border:var(--ref-neutral-300); --color-border-subtle:var(--ref-neutral-200); --color-text:var(--ref-neutral-900); --color-text-secondary:var(--ref-neutral-700); --color-text-tertiary:var(--ref-neutral-600); --color-text-placeholder:var(--ref-neutral-500); --color-on-primary:#fff; --color-focus-ring:rgba(66,133,244,.2);
+      --font-family-sans:Roboto,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif; --font-family-mono:SFMono-Regular,Consolas,"Liberation Mono",monospace;
+      --font-size-2xs:10px; --font-size-xs:11px; --font-size-sm:12px; --font-size-md:13px; --font-size-base:14px; --font-size-lg:16px; --font-size-xl:18px; --font-size-2xl:22px; --font-size-3xl:26px;
+      --font-weight-regular:400; --font-weight-medium:500; --font-weight-semibold:600; --font-weight-bold:700; --line-height-tight:1.2; --line-height-base:1.45; --line-height-relaxed:1.6; --letter-spacing-eyebrow:.12em;
+      --space-1:4px; --space-2:8px; --space-3:12px; --space-4:16px; --space-5:20px; --space-6:24px; --space-7:28px; --space-8:32px; --space-10:40px; --space-12:48px; --space-16:64px;
+      --radius-xs:4px; --radius-sm:8px; --radius-md:11px; --radius-lg:14px; --radius-xl:18px; --radius-pill:999px; --control-height-md:44px; --touch-target-min:44px;
+      --shadow-low:0 2px 6px rgba(32,33,36,.08); --shadow-raised:0 8px 18px rgba(32,33,36,.12); --shadow-card:0 14px 42px rgba(32,33,36,.11); --shadow-focus:0 0 0 3px var(--color-focus-ring);
+      --duration-fast:120ms; --duration-base:180ms; --duration-slow:280ms; --ease-standard:cubic-bezier(.2,0,0,1); --page-gutter-mobile:14px; --page-gutter-desktop:28px; --content-max-width:1440px; --z-base:1; --z-sticky:20; --z-overlay:60; --z-dialog:80;
+    }
+    *,*::before,*::after{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{min-width:320px;margin:0;color:var(--color-text);background:var(--color-background);font-family:var(--font-family-sans);line-height:var(--line-height-base);overflow-x:hidden}
+    body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.5;background-image:linear-gradient(rgba(66,133,244,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(66,133,244,.035) 1px,transparent 1px);background-size:32px 32px;mask-image:linear-gradient(to bottom,#000,transparent 75%)}
+    a{color:inherit} button,input,textarea{font:inherit} button{cursor:pointer} :focus-visible{outline:3px solid var(--color-primary);outline-offset:3px}
+    .sr-only{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important}
+    .app-shell{width:min(var(--content-max-width),calc(100% - 2 * var(--page-gutter-desktop)));margin:0 auto}
+    .fibo-header{display:flex;align-items:center;justify-content:space-between;gap:var(--space-4);padding:var(--space-6) 0 var(--space-4)}
+    .fibo-header__brand{display:flex;align-items:center;gap:var(--space-3);min-width:0;text-decoration:none}
+    .fibo-header__logo{display:grid;place-items:center;width:36px;height:36px;flex:0 0 36px;overflow:hidden;border:1px solid var(--color-border);border-radius:var(--radius-lg);background:#202124;box-shadow:var(--shadow-low)}
+    .fibo-header__logo svg{width:100%;height:100%}
+    .brand-kicker,.eyebrow,.panel-kicker{color:var(--color-primary);font-size:var(--font-size-2xs);font-weight:var(--font-weight-bold);letter-spacing:var(--letter-spacing-eyebrow);text-transform:uppercase}
+    .fibo-header__brand>span:last-child{display:block;font-size:var(--font-size-xl);font-weight:var(--font-weight-bold);line-height:var(--line-height-tight)}
+    .fibo-header__actions{display:flex;align-items:center;gap:var(--space-2)}
+    .fibo-header__reminder{display:flex;align-items:center;gap:var(--space-3);min-height:44px;padding:var(--space-2) var(--space-3);border:1px solid var(--color-border-subtle);border-radius:var(--radius-md);background:var(--color-surface);color:var(--color-text-secondary);box-shadow:var(--shadow-low);font-size:var(--font-size-sm)}
+    .reminder-dot{width:8px;height:8px;flex:0 0 8px;border-radius:50%;background:var(--color-warning);box-shadow:0 0 0 4px var(--color-warning-soft)}
+    .fibo-analysis-source{display:inline-flex;align-items:center;width:max-content;max-width:100%;padding:4px 8px;border-radius:var(--radius-pill);font-size:var(--font-size-2xs);font-weight:var(--font-weight-bold);letter-spacing:.08em;line-height:1.35;text-transform:uppercase}
+    .fibo-analysis-source--preview{background:var(--color-warning-soft);color:var(--color-warning-text)}
+    .fibo-card{border:1px solid var(--color-border);border-radius:var(--radius-lg);background:var(--color-surface);box-shadow:var(--shadow-low)}
+    .fibo-button{display:inline-flex;align-items:center;justify-content:center;gap:var(--space-2);min-height:var(--control-height-md);padding:0 var(--space-4);border:1px solid var(--color-border);border-radius:var(--radius-sm);background:var(--color-surface);color:var(--color-text-secondary);font-size:var(--font-size-md);font-weight:var(--font-weight-semibold);transition:background var(--duration-base) var(--ease-standard),border-color var(--duration-base) var(--ease-standard),color var(--duration-base) var(--ease-standard),transform var(--duration-base) var(--ease-standard),box-shadow var(--duration-base) var(--ease-standard)}
+    .fibo-button:hover{background:var(--color-surface-hover);color:var(--color-text);transform:translateY(-1px)} .fibo-button:active{transform:translateY(0)}
+    .fibo-button--primary{border-color:var(--color-primary-action);background:var(--color-primary-action);color:var(--color-on-primary);box-shadow:0 5px 12px rgba(26,115,232,.18)} .fibo-button--primary:hover{border-color:var(--color-primary-hover);background:var(--color-primary-hover);color:var(--color-on-primary)}
+    .fibo-button--danger:hover{border-color:var(--color-danger);background:var(--color-danger-soft);color:var(--color-danger-text)}
+    .fibo-button--compact{min-height:40px;padding:0 var(--space-3)}
+    .hero{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(260px,.65fr);gap:var(--space-8);align-items:end;padding:var(--space-12) 0 var(--space-8)}
+    .hero h2{max-width:760px;margin:var(--space-3) 0 var(--space-4);font-size:clamp(36px,6vw,66px);line-height:1.05;letter-spacing:-.055em;font-weight:var(--font-weight-medium)}
+    .hero h2 em{color:var(--color-primary-action);font-style:normal}.hero-copy{max-width:680px;margin:0;color:var(--color-text-secondary);font-size:clamp(15px,2vw,18px);line-height:var(--line-height-relaxed)}.hero-copy strong{color:var(--color-text);font-weight:var(--font-weight-semibold)}
+    .hero-sequence{padding:var(--space-5)} .hero-sequence h3{margin:6px 0 var(--space-4);font-size:var(--font-size-lg)}
+    .sequence-list{display:grid;gap:var(--space-3);margin:0;padding:0;list-style:none}.sequence-list li{display:grid;grid-template-columns:28px 1fr;gap:var(--space-3);align-items:start;color:var(--color-text-secondary);font-size:var(--font-size-sm)}.sequence-list b{display:grid;place-items:center;width:24px;height:24px;border-radius:50%;background:var(--color-primary-soft);color:var(--color-primary);font-size:var(--font-size-xs)}
+    .hero-actions{display:flex;flex-wrap:wrap;gap:var(--space-2);margin-top:var(--space-5)}
+    .hero-actions .install-hint{flex-basis:100%;margin:0;color:var(--color-text-tertiary);font-size:var(--font-size-xs);line-height:var(--line-height-base)}
+    .fibo-button:disabled{cursor:wait;opacity:.65;transform:none}
+    .section{margin-top:var(--space-10)} .section-heading{display:flex;align-items:end;justify-content:space-between;gap:var(--space-4);margin-bottom:var(--space-4)} .section-heading h3{margin:0;font-size:var(--font-size-2xl);line-height:var(--line-height-tight);font-weight:var(--font-weight-semibold);letter-spacing:-.025em}.section-heading p{margin:0;color:var(--color-text-tertiary);font-size:var(--font-size-sm)}
+    .storage-notice{margin:0 0 var(--space-4);padding:var(--space-3) var(--space-4);border:1px solid var(--color-warning);border-radius:var(--radius-sm);background:var(--color-warning-soft);color:var(--color-warning-text);font-size:var(--font-size-sm)}
+    .context-layout{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(270px,.65fr);gap:var(--space-4)} .context-controls{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--space-4);padding:var(--space-5)}
+    .context-group{min-width:0;margin:0;padding:0;border:0}.context-group legend{margin-bottom:var(--space-2);color:var(--color-text);font-size:var(--font-size-md);font-weight:var(--font-weight-semibold)}.context-group small{display:block;min-height:36px;margin-bottom:var(--space-3);color:var(--color-text-tertiary);font-size:var(--font-size-xs);line-height:var(--line-height-base)}
+    .context-choices{display:grid;gap:var(--space-2)} .context-choice{display:flex;align-items:center;justify-content:space-between;gap:var(--space-2);min-height:44px;padding:0 var(--space-3);border:1px solid var(--color-border);border-radius:var(--radius-sm);background:var(--color-surface);color:var(--color-text-secondary);font-size:var(--font-size-sm);text-align:left;transition:background var(--duration-base) var(--ease-standard),border-color var(--duration-base) var(--ease-standard),color var(--duration-base) var(--ease-standard)} .context-choice::after{content:"";width:7px;height:7px;flex:0 0 7px;border-radius:50%;background:var(--color-border)} .context-choice:hover{border-color:var(--color-primary);background:var(--color-primary-soft);color:var(--color-text)} .context-choice[aria-pressed="true"][data-value="supportive"]{border-color:var(--color-success-strong);background:var(--color-success-soft);color:var(--color-success-text)} .context-choice[aria-pressed="true"][data-value="supportive"]::after{background:var(--color-success)} .context-choice[aria-pressed="true"][data-value="neutral"]{border-color:var(--color-border);background:var(--color-surface-muted);color:var(--color-text)} .context-choice[aria-pressed="true"][data-value="neutral"]::after{background:var(--color-text-tertiary)} .context-choice[aria-pressed="true"][data-value="adverse"]{border-color:var(--color-danger);background:var(--color-danger-soft);color:var(--color-danger-text)} .context-choice[aria-pressed="true"][data-value="adverse"]::after{background:var(--color-danger)}
+    .context-summary{display:flex;flex-direction:column;justify-content:space-between;min-height:100%;padding:var(--space-5);border-left:4px solid var(--color-border)} .context-summary.is-success{border-left-color:var(--color-success)} .context-summary.is-warning{border-left-color:var(--color-warning)} .context-summary.is-danger{border-left-color:var(--color-danger)} .context-summary__eyebrow{color:var(--color-text-tertiary);font-size:var(--font-size-2xs);font-weight:var(--font-weight-bold);letter-spacing:var(--letter-spacing-eyebrow);text-transform:uppercase}.context-summary strong{display:block;margin:var(--space-3) 0 var(--space-2);font-size:var(--font-size-xl);line-height:var(--line-height-tight)}.context-summary p{min-height:62px;margin:0;color:var(--color-text-secondary);font-size:var(--font-size-sm);line-height:var(--line-height-relaxed)}.context-summary__rule{margin-top:var(--space-4);padding-top:var(--space-3);border-top:1px solid var(--color-border-subtle);color:var(--color-text-tertiary);font-size:var(--font-size-xs)}
+    .workspace-layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(290px,340px);gap:var(--space-4);align-items:start}.calculator-grid{display:grid;grid-template-columns:minmax(280px,.82fr) minmax(390px,1.18fr);gap:var(--space-4)} .input-panel,.result-panel,.pool-panel{padding:clamp(var(--space-5),3vw,var(--space-8))}.panel-title{margin:var(--space-2) 0 var(--space-6);font-size:var(--font-size-xl);line-height:var(--line-height-tight);font-weight:var(--font-weight-semibold)}
+    .field{min-width:0;margin:0 0 var(--space-4);padding:0;border:0}.field label,.field legend{display:block;margin-bottom:var(--space-2);color:var(--color-text-secondary);font-size:var(--font-size-md);font-weight:var(--font-weight-medium)}.field legend{padding:0}.field-hint{margin:var(--space-2) 0 0;color:var(--color-text-tertiary);font-size:var(--font-size-xs);line-height:var(--line-height-base)}
+    .input-wrap{position:relative}input,textarea{width:100%;min-height:var(--control-height-md);padding:0 var(--space-3);border:1px solid var(--color-border);border-radius:var(--radius-sm);background:var(--color-surface);color:var(--color-text);outline:0;transition:border-color var(--duration-base) var(--ease-standard),box-shadow var(--duration-base) var(--ease-standard),background var(--duration-base) var(--ease-standard)}input::placeholder,textarea::placeholder{color:var(--color-text-placeholder)}input:hover,textarea:hover{border-color:var(--color-primary)}input:focus,textarea:focus{border-color:var(--color-primary);box-shadow:var(--shadow-focus)}.unit{position:absolute;top:50%;right:var(--space-3);transform:translateY(-50%);color:var(--color-text-tertiary);font-size:var(--font-size-xs);pointer-events:none}.input-wrap input{padding-right:42px}
+    .form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--space-3)}.actions{display:flex;flex-wrap:wrap;gap:var(--space-2);margin-top:var(--space-5)}.actions .fibo-button--primary{flex:1 1 190px}.error{min-height:20px;margin:var(--space-3) 0 0;color:var(--color-danger-text);font-size:var(--font-size-xs)}.form-status{min-height:20px;margin:var(--space-2) 0 0;color:var(--color-success-text);font-size:var(--font-size-xs)}
+    .fibo-segmented-control{display:inline-flex;align-items:stretch;gap:2px;max-width:100%;padding:3px;overflow-x:auto;border:1px solid var(--color-border);border-radius:var(--radius-pill);background:var(--color-surface-subtle);scrollbar-width:none}.fibo-segmented-control::-webkit-scrollbar{display:none}.fibo-segmented-control>label{display:flex;flex:0 0 auto;margin:0;cursor:pointer}.fibo-segmented-control>label>input{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;clip-path:inset(50%)}.fibo-segmented-control>label>span{display:grid;place-items:center;min-height:38px;padding:0 var(--space-3);border-radius:var(--radius-pill);color:var(--color-text-secondary);font-size:var(--font-size-sm);white-space:nowrap;transition:background var(--duration-base) var(--ease-standard),color var(--duration-base) var(--ease-standard)}.fibo-segmented-control>label>input:checked+span{background:var(--color-primary);color:var(--color-on-primary)}.fibo-segmented-control>label>input:focus-visible+span{outline:3px solid var(--color-focus-ring);outline-offset:1px}
+    .result-top{display:flex;align-items:flex-start;justify-content:space-between;gap:var(--space-4)}.result-label{color:var(--color-text-secondary);font-size:var(--font-size-md)}.result-number{margin:var(--space-2) 0;color:var(--color-primary-action);font-family:var(--font-family-mono);font-size:clamp(42px,7vw,66px);line-height:1;letter-spacing:-.07em;font-variant-numeric:tabular-nums}.result-formula{color:var(--color-text-tertiary);font-family:var(--font-family-mono);font-size:var(--font-size-xs)}.result-badge{display:inline-flex;align-items:center;gap:7px;flex:0 0 auto;padding:7px 10px;border:1px solid var(--color-border);border-radius:var(--radius-pill);color:var(--color-text-tertiary);font-size:var(--font-size-xs);white-space:nowrap}.result-badge::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor}.result-badge.is-success{border-color:var(--color-success);color:var(--color-success-text);background:var(--color-success-soft)}.result-badge.is-warning{border-color:var(--color-warning);color:var(--color-warning-text);background:var(--color-warning-soft)}.result-badge.is-danger{border-color:var(--color-danger);color:var(--color-danger-text);background:var(--color-danger-soft)}
+    .price-rail{position:relative;height:128px;margin:var(--space-10) 4px var(--space-5)}.rail-track,.rail-segment{position:absolute;top:39px;height:8px;border-radius:var(--radius-pill)}.rail-track{left:0;right:0;background:linear-gradient(90deg,var(--color-danger-soft),var(--color-warning-soft) 50%,var(--color-success-soft));border:1px solid var(--color-border-subtle)}.rail-segment{left:0;width:0;background:rgba(66,133,244,.2);border:1px solid rgba(66,133,244,.26)}.rail-marker{position:absolute;top:27px;width:2px;height:32px;transform:translateX(-1px);background:var(--color-border);color:var(--color-text-tertiary)}.rail-marker::after{content:"";position:absolute;top:0;left:50%;width:10px;height:10px;transform:translate(-50%,-2px) rotate(45deg);border:1px solid currentColor;border-radius:3px;background:var(--color-surface)}.rail-marker span{position:absolute;top:47px;left:50%;transform:translateX(-50%);color:var(--color-text-tertiary);font-size:var(--font-size-2xs);white-space:nowrap}.rail-marker.key{height:40px;top:23px;background:var(--color-warning);color:var(--color-warning-text)}.rail-marker.key::after{background:var(--color-warning);border-color:var(--color-warning)}.rail-marker.key span{color:var(--color-warning-text);font-weight:var(--font-weight-bold)}.rail-marker.current{top:16px;height:48px;background:var(--color-primary);color:var(--color-primary)}.rail-marker.current::after{background:var(--color-primary);border-color:var(--color-primary)}.rail-marker.current span{top:-20px;color:var(--color-primary);font-weight:var(--font-weight-bold)}.rail-ends{position:absolute;top:78px;left:0;right:0;display:flex;justify-content:space-between;color:var(--color-text-tertiary);font-family:var(--font-family-mono);font-size:var(--font-size-2xs)}
+    .level-list{border-top:1px solid var(--color-border-subtle)}.level-row{display:grid;grid-template-columns:84px minmax(0,1fr) auto;gap:var(--space-3);align-items:center;padding:var(--space-3) 0;border-bottom:1px solid var(--color-border-subtle)}.level-tag{color:var(--color-text-secondary);font-size:var(--font-size-xs)}.level-tag strong{display:block;color:var(--color-text);font-size:var(--font-size-sm)}.level-desc{color:var(--color-text-tertiary);font-size:var(--font-size-xs)}.level-value{color:var(--color-text);font-family:var(--font-family-mono);font-size:var(--font-size-lg);font-variant-numeric:tabular-nums}.reading,.result-context-note{display:flex;align-items:flex-start;gap:var(--space-2);margin-top:var(--space-4);padding:var(--space-3);border:1px solid var(--color-border-subtle);border-radius:var(--radius-sm);background:var(--color-surface-subtle);color:var(--color-text-secondary);font-size:var(--font-size-sm);line-height:var(--line-height-relaxed)}.reading.is-success,.result-context-note.is-success{border-color:var(--color-success);background:var(--color-success-soft);color:var(--color-success-text)}.reading.is-warning,.result-context-note.is-warning{border-color:var(--color-warning);background:var(--color-warning-soft);color:var(--color-warning-text)}.reading.is-danger,.result-context-note.is-danger{border-color:var(--color-danger);background:var(--color-danger-soft);color:var(--color-danger-text)}.reading-icon{display:grid;place-items:center;width:20px;height:20px;flex:0 0 20px;border:1px solid currentColor;border-radius:50%;font-size:var(--font-size-xs);font-weight:var(--font-weight-bold)}.reading strong,.result-context-note strong{color:var(--color-text);font-weight:var(--font-weight-semibold)}.result-context-note{margin-top:var(--space-2);font-size:var(--font-size-xs)}.empty-note{color:var(--color-text-tertiary)}
+    .pool-panel{min-width:0}.pool-header{display:flex;align-items:flex-start;justify-content:space-between;gap:var(--space-3)}.pool-header h4{margin:var(--space-2) 0 0;font-size:var(--font-size-xl);line-height:var(--line-height-tight)}.pool-count{display:inline-flex;align-items:center;min-height:28px;padding:0 9px;border-radius:var(--radius-pill);background:var(--color-primary-soft);color:var(--color-primary);font-size:var(--font-size-xs);font-weight:var(--font-weight-bold)}.pool-current{margin:var(--space-4) 0;padding:var(--space-3);border:1px solid var(--color-border-subtle);border-radius:var(--radius-sm);background:var(--color-surface-subtle)}.pool-current strong{display:block;font-size:var(--font-size-sm)}.pool-current span{display:block;margin-top:3px;color:var(--color-text-tertiary);font-size:var(--font-size-xs)}.pool-actions{display:grid;grid-template-columns:1fr 1fr;gap:var(--space-2);margin-bottom:var(--space-4)}.pool-list{display:grid;gap:var(--space-2)}.pool-item{padding:var(--space-3);border:1px solid var(--color-border);border-radius:var(--radius-md);background:var(--color-surface);transition:border-color var(--duration-base) var(--ease-standard),box-shadow var(--duration-base) var(--ease-standard)}.pool-item.is-active{border-color:var(--color-primary);box-shadow:0 0 0 2px var(--color-primary-soft)}.pool-item__top{display:flex;align-items:flex-start;justify-content:space-between;gap:var(--space-2)}.pool-item__name{min-width:0;overflow:hidden;color:var(--color-text);font-size:var(--font-size-md);font-weight:var(--font-weight-semibold);text-overflow:ellipsis;white-space:nowrap}.pool-item__date{flex:0 0 auto;color:var(--color-text-tertiary);font-size:var(--font-size-2xs)}.pool-item__meta{display:grid;gap:3px;margin-top:var(--space-2);color:var(--color-text-tertiary);font-family:var(--font-family-mono);font-size:var(--font-size-2xs);line-height:1.4}.pool-item__context{display:flex;align-items:center;gap:5px;margin-top:var(--space-2);color:var(--color-text-secondary);font-size:var(--font-size-xs)}.pool-item__context::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--color-border)}.pool-item__context.is-success::before{background:var(--color-success)}.pool-item__context.is-warning::before{background:var(--color-warning)}.pool-item__context.is-danger::before{background:var(--color-danger)}.pool-item__actions{display:flex;gap:var(--space-2);margin-top:var(--space-3)}.pool-item__actions .fibo-button{flex:1;min-height:40px}.pool-empty{padding:var(--space-5) var(--space-3);border:1px dashed var(--color-border);border-radius:var(--radius-md);color:var(--color-text-tertiary);font-size:var(--font-size-sm);text-align:center}.pool-status{min-height:20px;margin:var(--space-3) 0 0;color:var(--color-success-text);font-size:var(--font-size-xs)}
+    .rules-details{border:1px solid var(--color-border);border-radius:var(--radius-lg);background:var(--color-surface);box-shadow:var(--shadow-low)}.rules-details>summary{min-height:44px;padding:var(--space-4);cursor:pointer;color:var(--color-text);font-size:var(--font-size-md);font-weight:var(--font-weight-semibold)}.rules-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--space-3);padding:0 var(--space-4) var(--space-4)}.rule-card{min-height:166px;padding:var(--space-4);border:1px solid var(--color-border-subtle);border-radius:var(--radius-md);background:var(--color-surface-subtle)}.rule-index{color:var(--color-primary);font-family:var(--font-family-mono);font-size:var(--font-size-xs);font-weight:var(--font-weight-bold)}.rule-card h4{margin:var(--space-3) 0 var(--space-2);font-size:var(--font-size-md)}.rule-card p{margin:0;color:var(--color-text-secondary);font-size:var(--font-size-sm);line-height:var(--line-height-relaxed)}
+    .footer{display:flex;justify-content:space-between;gap:var(--space-4);margin:var(--space-12) 0 var(--space-6);padding-top:var(--space-4);border-top:1px solid var(--color-border-subtle);color:var(--color-text-tertiary);font-size:var(--font-size-xs)}.footer strong{color:var(--color-text-secondary)}
+    .mobile-bottom-nav{display:none}
+    .fibo-modal-backdrop{position:fixed;inset:0;z-index:var(--z-dialog);display:grid;place-items:center;padding:var(--space-4);background:rgba(32,33,36,.42)}.fibo-modal-backdrop[hidden]{display:none}.fibo-modal{width:min(100%,420px);border:1px solid var(--color-border);border-radius:var(--radius-lg);background:var(--color-surface);box-shadow:var(--shadow-card)}.fibo-modal__header{padding:var(--space-5) var(--space-5) 0}.fibo-modal__header h2{margin:0;font-size:var(--font-size-xl)}.fibo-modal__body{padding:var(--space-3) var(--space-5);color:var(--color-text-secondary);font-size:var(--font-size-sm);line-height:var(--line-height-relaxed)}.fibo-modal__body p{margin:0}.fibo-modal__footer{display:flex;justify-content:flex-end;gap:var(--space-2);padding:0 var(--space-5) var(--space-5)}
+    @media(max-width:1200px){.calculator-grid{grid-template-columns:1fr}}
+    @media(max-width:1100px){.hero{grid-template-columns:1fr}.hero{padding-top:var(--space-10)}.context-layout{grid-template-columns:1fr}.context-summary{min-height:0}}
+    @media(max-width:768px){
+      html{scroll-behavior:auto}.app-shell{width:min(100% - 2 * var(--page-gutter-mobile),var(--content-max-width));padding-bottom:calc(78px + env(safe-area-inset-bottom))}.fibo-header{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:var(--space-3);padding-top:var(--space-4)}.fibo-header__logo{width:34px;height:34px;flex-basis:34px}.fibo-header__brand>span:last-child{font-size:var(--font-size-lg)}.fibo-header__actions .fibo-analysis-source{display:none}.fibo-header__reminder{grid-column:1 / -1;min-height:40px}.hero{display:block;padding:var(--space-8) 0 var(--space-4)}.hero h2{font-size:clamp(34px,11vw,50px)}.hero-copy{font-size:var(--font-size-base)}.hero-sequence{display:none}.hero-actions{margin-top:var(--space-4)}.section{margin-top:var(--space-6)}.section-heading{align-items:flex-start;flex-direction:column;gap:var(--space-1);margin-bottom:var(--space-3)}.section-heading h3{font-size:var(--font-size-xl)}.section-heading p{font-size:var(--font-size-xs)}.storage-notice{margin-bottom:var(--space-3);padding:var(--space-3)}.mobile-step-panel{display:none!important}.mobile-step-panel.is-active{display:block!important}.workspace-layout{display:block}.context-layout{display:block}.context-controls{display:grid;grid-template-columns:1fr;gap:var(--space-2);padding:var(--space-3)}.context-group{display:grid;grid-template-columns:72px minmax(0,1fr);gap:var(--space-2);align-items:center;padding:var(--space-2) 0;border-bottom:1px solid var(--color-border-subtle)}.context-group:last-child{border-bottom:0}.context-group legend{margin:0;font-size:var(--font-size-sm)}.context-group small{display:none}.context-choices{display:flex;gap:4px;min-width:0;padding:3px;overflow-x:auto;border:1px solid var(--color-border);border-radius:var(--radius-pill);background:var(--color-surface-subtle);scrollbar-width:none}.context-choices::-webkit-scrollbar{display:none}.context-choice{justify-content:center;min-width:64px;min-height:38px;padding:0 8px;border:0;border-radius:var(--radius-pill);background:transparent;font-size:var(--font-size-xs);white-space:nowrap}.context-choice::after{display:none}.context-choice:hover{background:var(--color-primary-soft)}.context-choice[aria-pressed="true"][data-value="supportive"],.context-choice[aria-pressed="true"][data-value="neutral"],.context-choice[aria-pressed="true"][data-value="adverse"]{border:0}.context-choice[aria-pressed="true"][data-value="supportive"]{background:var(--color-success-soft)}.context-choice[aria-pressed="true"][data-value="neutral"]{background:var(--color-surface-muted)}.context-choice[aria-pressed="true"][data-value="adverse"]{background:var(--color-danger-soft)}.context-summary{margin-top:var(--space-3);padding:var(--space-4);border-left:0;border-top:4px solid var(--color-border)}.context-summary.is-success{border-top-color:var(--color-success)}.context-summary.is-warning{border-top-color:var(--color-warning)}.context-summary.is-danger{border-top-color:var(--color-danger)}.context-summary p{min-height:0}.calculator-grid{display:block}.input-panel,.result-panel,.pool-panel{padding:var(--space-4)}.form-grid{grid-template-columns:1fr;gap:0}.actions{display:grid;grid-template-columns:1fr 1fr;margin-top:var(--space-4)}.actions .fibo-button--primary{grid-column:1 / -1}.actions .fibo-button{min-height:46px}.result-top{display:block}.result-badge{margin-top:var(--space-3)}.result-number{font-size:clamp(42px,15vw,64px)}.price-rail{margin-top:var(--space-8)}.level-row{grid-template-columns:72px minmax(0,1fr) auto;gap:var(--space-2)}.level-desc{display:none}.result-panel{margin-top:var(--space-3)}.pool-panel{margin-top:0}.pool-actions{position:sticky;top:var(--space-2);z-index:var(--z-sticky);padding:var(--space-2) 0;background:linear-gradient(var(--color-surface) 75%,transparent)}.pool-item__actions .fibo-button{min-height:44px}.rules-details{margin-top:var(--space-6)}.rules-grid{grid-template-columns:1fr;padding:0 var(--space-3) var(--space-3)}.rule-card{min-height:0}.footer{flex-direction:column;gap:var(--space-2);margin-top:var(--space-8);padding-bottom:0}.mobile-bottom-nav{position:fixed;right:0;bottom:0;left:0;z-index:var(--z-sticky);display:grid;grid-template-columns:repeat(3,1fr);gap:4px;padding:6px 10px calc(6px + env(safe-area-inset-bottom));border-top:1px solid var(--color-border);background:rgba(255,255,255,.94);box-shadow:0 -4px 18px rgba(32,33,36,.1);backdrop-filter:blur(14px)}.mobile-bottom-nav button{display:grid;place-items:center;gap:2px;min-height:var(--touch-target-min);padding:4px;border:0;border-radius:var(--radius-sm);background:transparent;color:var(--color-text-tertiary);font-size:var(--font-size-xs);font-weight:var(--font-weight-semibold)}.mobile-bottom-nav button span:first-child{font-size:18px;line-height:1}.mobile-bottom-nav button[aria-selected="true"]{background:var(--color-primary-soft);color:var(--color-primary-action)}
+    }
+    @media(max-width:768px){.context-group legend{grid-column:1;grid-row:1}.context-choices{grid-column:2;grid-row:1;width:100%}.context-choice{min-height:44px}.fibo-segmented-control>label>span{min-height:44px}}
+    @media(max-width:650px){#markerClose span{display:none}.rail-ends{font-size:9px}}
+    @media(max-width:380px){.app-shell{width:min(100% - 20px,var(--content-max-width))}.input-panel,.result-panel,.pool-panel{padding:var(--space-3)}.context-group{grid-template-columns:64px minmax(0,1fr)}.context-choice{min-width:58px;padding:0 6px}.hero h2{font-size:34px}.section-heading h3{font-size:var(--font-size-lg)}}
+    @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;transition-duration:.01ms!important;animation-duration:.01ms!important;animation-iteration-count:1!important}}
+  </style>
+</head>
+<body>
+  <main class="app-shell" id="top">
+    <header class="fibo-header" aria-label="倒车接人计算器页头">
+      <a class="fibo-header__brand" href="#top" aria-label="返回倒车接人计算器顶部">
+        <span class="fibo-header__logo" aria-hidden="true">
+          <svg viewBox="0 0 64 64" role="img"><rect width="64" height="64" rx="16" fill="#202124"/><path d="M15 17h25c5 0 9 4 9 9v22H15z" fill="none" stroke="#fbbc05" stroke-width="3"/><path d="M21 24h13M21 31h7M42 17l6-5 3 8M45 12l-5 1" fill="none" stroke="#fbbc05" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><path d="M22 39h5v5h-5zM31 39h5v5h-5zM40 39h5v5h-5zM22 47h5v5h-5zM31 47h5v5h-5zM40 47h5v5h-5z" fill="#fbbc05"/><path d="M46 29l-5 5-5-5" fill="none" stroke="#fbbc05" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+        <span><span class="brand-kicker">RETRACE WITH CONTEXT</span><span style="display:block">倒车接人计算器</span></span>
+      </a>
+      <div class="fibo-header__actions"><span class="fibo-analysis-source fibo-analysis-source--preview">离线 · 手动检查</span></div>
+      <div class="fibo-header__reminder" role="status" aria-live="polite"><span class="reminder-dot" aria-hidden="true"></span><span>价位是观察框架，不是自动买点；环境不配合时，宁可继续等。</span></div>
+    </header>
+
+    <div id="storageNotice" class="storage-notice" role="status" aria-live="polite" hidden></div>
+    <div id="appStatus" class="sr-only" role="status" aria-live="polite"></div>
+
+    <section class="hero" aria-labelledby="hero-heading">
+      <div>
+        <div class="eyebrow">01 / OBSERVE BEFORE ACTING</div>
+        <h2 id="hero-heading">回撤到位，<em>先看环境再接人</em></h2>
+        <p class="hero-copy">把上涨段拆成 38.2%、50%、61.8% 三个观察位；<strong>价位是计划，不是信号。</strong> 先记录你的判断，再决定是否继续观察。</p>
+        <div class="hero-actions"><button class="fibo-button fibo-button--primary" type="button" id="heroStartButton">开始环境检查 <span aria-hidden="true">→</span></button><button class="fibo-button" type="button" id="installButton" aria-describedby="installHint">添加到桌面</button><p class="install-hint" id="installHint" role="status" aria-live="polite" hidden></p></div>
+      </div>
+      <aside class="hero-sequence fibo-card" aria-label="使用顺序">
+        <div class="panel-kicker">WORKFLOW</div><h3>三步完成一次复盘</h3>
+        <ol class="sequence-list"><li><b>1</b><span>先判断大盘、板块和个股是否同步。</span></li><li><b>2</b><span>输入上涨日下沿与收盘价，生成分层价位。</span></li><li><b>3</b><span>保存到标的池，按记录日期随时切换复查。</span></li></ol>
+      </aside>
+    </section>
+
+    <section class="section" id="contextSection" aria-labelledby="context-heading">
+      <div class="section-heading"><div><div class="panel-kicker">02 / MARKET CONTEXT</div><h3 id="context-heading">先看环境，再看价位</h3></div><p>手动判断，不接入实时行情</p></div>
+      <div class="mobile-step-panel is-active" id="environmentPanel" role="tabpanel" aria-labelledby="stepEnvironment" aria-hidden="false">
+        <div class="context-layout">
+          <div class="context-controls fibo-card" aria-label="大盘、板块与个股环境选择">
+            <fieldset class="context-group"><legend>大盘</legend><small>趋势与量能是否给出支持。</small><div class="context-choices"><button class="context-choice" type="button" data-scope="market" data-value="supportive" aria-pressed="false">顺风</button><button class="context-choice" type="button" data-scope="market" data-value="neutral" aria-pressed="false">中性</button><button class="context-choice" type="button" data-scope="market" data-value="adverse" aria-pressed="false">逆风</button></div></fieldset>
+            <fieldset class="context-group"><legend>板块</legend><small>相对强弱与资金是否仍在。</small><div class="context-choices"><button class="context-choice" type="button" data-scope="sector" data-value="supportive" aria-pressed="false">顺风</button><button class="context-choice" type="button" data-scope="sector" data-value="neutral" aria-pressed="false">中性</button><button class="context-choice" type="button" data-scope="sector" data-value="adverse" aria-pressed="false">逆风</button></div></fieldset>
+            <fieldset class="context-group"><legend>个股</legend><small>上涨逻辑与承接结构是否保持。</small><div class="context-choices"><button class="context-choice" type="button" data-scope="instrument" data-value="supportive" aria-pressed="false">顺风</button><button class="context-choice" type="button" data-scope="instrument" data-value="neutral" aria-pressed="false">中性</button><button class="context-choice" type="button" data-scope="instrument" data-value="adverse" aria-pressed="false">逆风</button></div></fieldset>
+          </div>
+          <aside class="context-summary fibo-card is-neutral" id="contextSummary" aria-live="polite"><div><div class="context-summary__eyebrow">CONTEXT READOUT</div><strong id="contextStatus">环境未确认</strong><p id="contextMessage">先分别判断大盘、板块和个股结构。这里的提示只用于提醒风险，不会改变黄金分割计算。</p></div><div class="context-summary__rule">规则：任一层逆风，就不要把回撤位直接当作接人点。</div></aside>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="workspace-heading">
+      <div class="section-heading"><div><div class="panel-kicker">03 / CALCULATE &amp; SAVE</div><h3 id="workspace-heading">生成价位，保存一份可复查的记录</h3></div><p>每个标的只保留最新快照</p></div>
+      <div class="workspace-layout">
+        <div class="mobile-step-panel is-active" id="calculatorPanel" role="tabpanel" aria-labelledby="stepCalculator" aria-hidden="false">
+          <div class="calculator-grid">
+            <form class="input-panel fibo-card" id="calcForm" novalidate>
+              <div class="panel-kicker">CALCULATION INPUT</div><h4 class="panel-title">输入上涨日数据</h4>
+              <div class="form-grid">
+                <div class="field"><label for="symbol">标的名称 / 代码</label><input id="symbol" type="text" maxlength="80" autocomplete="off" placeholder="例如：自选标的"></div>
+                <div class="field"><label for="recordDate">记录日期</label><input id="recordDate" type="date" required></div>
+              </div>
+              <fieldset class="field"><legend>下沿锚点</legend><div class="fibo-segmented-control" role="radiogroup" aria-label="选择下沿锚点"><label><input type="radio" name="anchorType" value="open" checked><span>上涨日开盘</span></label><label><input type="radio" name="anchorType" value="prev"><span>前收价（跳空）</span></label></div><div class="input-wrap" style="margin-top:var(--space-3)"><label class="sr-only" for="anchor">下沿锚点价格</label><input id="anchor" type="number" inputmode="decimal" min="0" step="0.01" placeholder="输入下沿价格" required><span class="unit">元</span></div><p class="field-hint" id="anchorHint">普通上涨日使用开盘价；若当天跳空高开，可切换到前收价。</p></fieldset>
+              <div class="form-grid"><div class="field"><label for="close">上涨日收盘价</label><div class="input-wrap"><input id="close" type="number" inputmode="decimal" min="0" step="0.01" placeholder="输入收盘价" required><span class="unit">元</span></div></div><div class="field"><label for="current">当前价格 <span class="empty-note">（可选）</span></label><div class="input-wrap"><input id="current" type="number" inputmode="decimal" min="0" step="0.01" placeholder="用于判断区间"><span class="unit">元</span></div></div></div>
+              <div class="actions"><button class="fibo-button fibo-button--primary" type="submit">生成观察价位 <span aria-hidden="true">→</span></button><button class="fibo-button" type="button" id="saveButton">保存到标的池</button><button class="fibo-button" type="button" id="resetButton">清空</button></div>
+              <p class="error" id="calcError" role="alert" aria-live="polite"></p><p class="form-status" id="formStatus" aria-live="polite"></p>
+            </form>
+
+            <article class="result-panel fibo-card" id="resultPanel" tabindex="-1" aria-labelledby="result-heading">
+              <div class="result-top"><div><div class="panel-kicker">OBSERVATION READOUT</div><div class="result-label" id="result-heading">38.2% 主观察位</div><div class="result-number" id="goldenValue">—</div><div class="result-formula">收盘价 −（收盘价 − 下沿锚点）× 38.2%</div></div><div class="result-badge is-neutral" id="resultBadge">等待输入</div></div>
+              <div style="margin-top:var(--space-3)"><span class="fibo-analysis-source fibo-analysis-source--preview" id="sourceLabel">Current Preview · 手动输入</span></div>
+              <div class="price-rail" aria-label="价格轨道"><div class="rail-track"></div><div class="rail-segment" id="railSegment"></div><div class="rail-marker" id="marker618" style="left:0"><span>61.8%</span></div><div class="rail-marker" id="marker500" style="left:0"><span>50%</span></div><div class="rail-marker key" id="marker382" style="left:0"><span>38.2%</span></div><div class="rail-marker" id="markerClose" style="left:100%"><span>收盘</span></div><div class="rail-marker current" id="markerCurrent" style="left:100%;display:none"><span>当前</span></div><div class="rail-ends"><span id="railLow">下沿 —</span><span id="railHigh">收盘 —</span></div></div>
+              <div class="level-list" aria-label="分层观察价位"><div class="level-row"><div class="level-tag"><strong>浅回撤</strong>38.2%</div><div class="level-desc">优先观察承接是否出现</div><div class="level-value" id="level382">—</div></div><div class="level-row"><div class="level-tag"><strong>中位</strong>50%</div><div class="level-desc">强弱分界，重新核对逻辑</div><div class="level-value" id="level500">—</div></div><div class="level-row"><div class="level-tag"><strong>深回撤</strong>61.8%</div><div class="level-desc">跌破后只做复盘，不自动补仓</div><div class="level-value" id="level618">—</div></div></div>
+              <div class="reading" id="reading"><span class="reading-icon" aria-hidden="true">i</span><div><strong id="readingTitle">先输入上涨日数据。</strong> <span id="readingDetail" class="empty-note">生成结果后，这里会显示当前价格所处区间。</span></div></div>
+              <div class="result-context-note is-neutral" id="resultContextNote" aria-live="polite"><span aria-hidden="true">↗</span><div><strong id="resultContextTitle">环境未确认。</strong> <span id="resultContextDetail">先完成大盘、板块和个股三层判断。</span></div></div>
+            </article>
+          </div>
+        </div>
+
+        <aside class="mobile-step-panel pool-panel fibo-card is-active" id="poolPanel" role="tabpanel" aria-labelledby="stepPool" aria-hidden="false">
+          <div class="pool-header"><div><div class="panel-kicker">INSTRUMENT POOL</div><h4>标的池</h4></div><span class="pool-count" id="poolCount">0 个</span></div>
+          <div class="pool-current"><strong id="poolDraftStatus">新建标的 · 尚未保存</strong><span>保存后可按记录日期切换查看。</span></div>
+          <div class="pool-actions"><button class="fibo-button fibo-button--compact" type="button" id="newInstrumentButton">新建标的</button><button class="fibo-button fibo-button--primary fibo-button--compact" type="button" id="poolSaveButton">保存当前</button></div>
+          <div class="pool-list" id="poolList" aria-label="已保存标的列表"></div>
+          <div class="pool-empty" id="poolEmpty">还没有保存的标的。先填写数据，再保存一份可复查的快照。</div>
+          <p class="pool-status" id="poolStatus" role="status" aria-live="polite"></p>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="rules-heading">
+      <details class="rules-details" id="rulesDetails">
+        <summary id="rules-heading">查看三条复盘规则</summary>
+        <div class="rules-grid"><article class="rule-card"><div class="rule-index">01</div><h4>先统一锚点</h4><p>普通上涨日使用开盘价；跳空高开时切换到前一日收盘价，避免把缺口误当成实体。</p></article><article class="rule-card"><div class="rule-index">02</div><h4>价位不是买点</h4><p>38.2% 只是优先观察位。等价格、量能和结构出现承接，再决定是否执行计划。</p></article><article class="rule-card"><div class="rule-index">03</div><h4>环境不配合就等</h4><p>大盘、板块、个股不同步时，重新评估上涨逻辑与仓位，不把回撤位直接当作接人点。</p></article></div>
+      </details>
+    </section>
+
+    <footer class="footer"><span><strong>倒车接人计算器</strong> · 回撤观察工具</span><span>仅供学习与记录，不构成投资建议</span></footer>
+  </main>
+
+  <nav class="mobile-bottom-nav mobile-bottom-nav--workflow" id="mobileNav" role="tablist" aria-label="移动端工作流导航">
+    <button type="button" role="tab" data-step-target="environment" id="stepEnvironment" aria-controls="environmentPanel" aria-selected="true"><span aria-hidden="true">◌</span><span>环境</span></button>
+    <button type="button" role="tab" data-step-target="calculator" id="stepCalculator" aria-controls="calculatorPanel" aria-selected="false"><span aria-hidden="true">＋</span><span>计算</span></button>
+    <button type="button" role="tab" data-step-target="pool" id="stepPool" aria-controls="poolPanel" aria-selected="false"><span aria-hidden="true">▣</span><span>标的池</span></button>
+  </nav>
+
+  <div class="fibo-modal-backdrop" id="confirmModal" hidden>
+    <div class="fibo-modal" role="dialog" aria-modal="true" aria-labelledby="confirmTitle" aria-describedby="confirmMessage">
+      <div class="fibo-modal__header"><h2 id="confirmTitle">确认操作</h2></div>
+      <div class="fibo-modal__body"><p id="confirmMessage">确定继续吗？</p></div>
+      <div class="fibo-modal__footer"><button class="fibo-button" type="button" id="confirmCancel">取消</button><button class="fibo-button fibo-button--primary" type="button" id="confirmAccept">继续</button></div>
+    </div>
+  </div>
+
+  <script>
+    (() => {
+      'use strict';
+      const $ = (id) => document.getElementById(id);
+      const qsa = (selector) => Array.prototype.slice.call(document.querySelectorAll(selector));
+      const STORAGE_KEY = 'reverse_pickup_pool_v1';
+      const VALID_CONTEXT = ['unset', 'supportive', 'neutral', 'adverse'];
+      const contextLabels = { market: '大盘', sector: '板块', instrument: '个股' };
+      const contextState = { market: 'unset', sector: 'unset', instrument: 'unset' };
+      const markers = { m618: $('marker618'), m500: $('marker500'), m382: $('marker382'), close: $('markerClose'), current: $('markerCurrent') };
+      let poolState = { version: 1, activeId: '', items: [] };
+      let editingId = null;
+      let baselineSnapshot = null;
+      let hasResult = false;
+      let activeStep = 'environment';
+      let storage = null;
+      let storageWarning = '';
+      let storageCorrupt = false;
+      let confirmResolver = null;
+      let confirmReturnFocus = null;
+      let deferredInstallPrompt = null;
+
+      const fmt = (value) => Number.isFinite(value) ? value.toFixed(2) : '—';
+      const cloneContext = (state) => ({ market: state.market, sector: state.sector, instrument: state.instrument });
+      const todayLocal = () => { const d = new Date(); return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0'); };
+      const validDate = (value) => { if (!/^\d{4}-\d{2}-\d{2}$/.test(value || '')) return false; const parts = value.split('-').map(Number); const d = new Date(parts[0], parts[1] - 1, parts[2]); return d.getFullYear() === parts[0] && d.getMonth() === parts[1] - 1 && d.getDate() === parts[2]; };
+      const displayDate = (value) => { if (!validDate(value)) return '日期未记录'; const parts = value.split('-'); return parts[0] + '/' + parts[1] + '/' + parts[2]; };
+      const finiteOrNull = (value) => typeof value === 'number' && Number.isFinite(value) ? value : null;
+      const makeId = () => { try { if (window.crypto && typeof window.crypto.randomUUID === 'function') return window.crypto.randomUUID(); } catch (error) {} return 'instrument-' + Date.now().toString(36) + '-' + Math.random().toString(36).slice(2, 10); };
+      const emptySnapshot = () => ({ label: '', anchorType: 'open', anchor: null, close: null, current: null, context: { market: 'unset', sector: 'unset', instrument: 'unset' }, recordDate: todayLocal() });
+      const normalizedSnapshot = (snapshot) => ({ label: snapshot.label || '', anchorType: snapshot.anchorType === 'prev' ? 'prev' : 'open', anchor: finiteOrNull(snapshot.anchor), close: finiteOrNull(snapshot.close), current: finiteOrNull(snapshot.current), context: cloneContext(snapshot.context || { market: 'unset', sector: 'unset', instrument: 'unset' }), recordDate: validDate(snapshot.recordDate) ? snapshot.recordDate : todayLocal() });
+      const comparable = (snapshot) => JSON.stringify(normalizedSnapshot(snapshot));
+      const announce = (message) => { $('appStatus').textContent = message || ''; };
+
+      function isStandaloneMode() {
+        return window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
+      }
+      function setInstallHint(message) {
+        $('installHint').textContent = message || '';
+        $('installHint').hidden = !message;
+      }
+      function updateInstallButton() {
+        const button = $('installButton');
+        if (isStandaloneMode()) {
+          button.textContent = '已添加到桌面';
+          button.disabled = true;
+          setInstallHint('当前已在独立应用模式中运行。');
+          return;
+        }
+        button.disabled = false;
+        button.textContent = deferredInstallPrompt ? '一键添加到桌面' : '添加到桌面';
+      }
+      async function installApp() {
+        if (isStandaloneMode()) { updateInstallButton(); return; }
+        if (deferredInstallPrompt) {
+          const promptEvent = deferredInstallPrompt;
+          deferredInstallPrompt = null;
+          $('installButton').disabled = true;
+          promptEvent.prompt();
+          try {
+            const choice = await promptEvent.userChoice;
+            setInstallHint(choice && choice.outcome === 'accepted' ? '正在添加到桌面……' : '已取消安装，你可以稍后再试。');
+          } catch (error) {
+            setInstallHint('浏览器未能打开安装窗口，请使用浏览器菜单里的“安装应用”。');
+          }
+          updateInstallButton();
+          return;
+        }
+        if (location.protocol === 'file:') {
+          setInstallHint('浏览器不允许从本地文件直接安装。请通过 localhost 或 HTTPS 打开本页，再点此按钮。');
+        } else if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
+          setInstallHint('iPhone / iPad：点浏览器“分享”，再选“添加到主屏幕”。');
+        } else {
+          setInstallHint('若未出现安装窗口，请在浏览器菜单中选择“安装应用”或“添加到主屏幕”。');
+        }
+        announce($('installHint').textContent);
+      }
+
+      window.addEventListener('beforeinstallprompt', (event) => {
+        event.preventDefault();
+        deferredInstallPrompt = event;
+        setInstallHint('应用已准备好，可一键添加到桌面并离线使用。');
+        updateInstallButton();
+      });
+      window.addEventListener('appinstalled', () => {
+        deferredInstallPrompt = null;
+        setInstallHint('已成功添加到桌面。');
+        updateInstallButton();
+        announce('倒车接人计算器已成功添加到桌面。');
+      });
+
+      function setStorageWarning(message) { storageWarning = message || ''; renderStorageNotice(); }
+      function renderStorageNotice() { $('storageNotice').textContent = storageWarning; $('storageNotice').hidden = !storageWarning; }
+
+      function normalizePool(raw) {
+        if (!raw || raw.version !== 1 || !Array.isArray(raw.items)) throw new Error('unsupported pool shape');
+        let hadInvalid = false; const items = []; const seenIds = new Set();
+        raw.items.forEach((item) => {
+          if (!item || typeof item !== 'object') { hadInvalid = true; return; }
+          const id = typeof item.id === 'string' && item.id.trim() ? item.id.trim() : ''; const label = typeof item.label === 'string' ? item.label.trim() : ''; const anchorType = item.anchorType === 'prev' ? 'prev' : 'open'; const recordDate = typeof item.recordDate === 'string' && validDate(item.recordDate) ? item.recordDate : '';
+          const context = { market: VALID_CONTEXT.includes(item.context && item.context.market) ? item.context.market : 'unset', sector: VALID_CONTEXT.includes(item.context && item.context.sector) ? item.context.sector : 'unset', instrument: VALID_CONTEXT.includes(item.context && item.context.instrument) ? item.context.instrument : 'unset' };
+          if (!id || !label || !recordDate || seenIds.has(id)) { hadInvalid = true; return; }
+          seenIds.add(id);
+          if (item.context && (context.market !== item.context.market || context.sector !== item.context.sector || context.instrument !== item.context.instrument)) hadInvalid = true;
+          items.push({ id: id, label: label, anchorType: anchorType, anchor: finiteOrNull(item.anchor), close: finiteOrNull(item.close), current: finiteOrNull(item.current), context: context, recordDate: recordDate, createdAt: typeof item.createdAt === 'string' ? item.createdAt : new Date().toISOString(), updatedAt: typeof item.updatedAt === 'string' ? item.updatedAt : new Date().toISOString() });
+        });
+        const requestedActive = typeof raw.activeId === 'string' ? raw.activeId : ''; const activeId = items.some((item) => item.id === requestedActive) ? requestedActive : ''; if (requestedActive && !activeId) hadInvalid = true;
+        return { pool: { version: 1, activeId: activeId, items: items }, hadInvalid: hadInvalid };
+      }
+
+      function loadPool() {
+        let candidateStorage = null;
+        try {
+          candidateStorage = window.localStorage; storage = candidateStorage; const raw = storage.getItem(STORAGE_KEY); if (!raw) return;
+          const parsed = normalizePool(JSON.parse(raw)); poolState = parsed.pool; storageCorrupt = parsed.hadInvalid; if (parsed.hadInvalid) setStorageWarning('标的池里有无法识别的记录，已跳过；只有明确保存时才会用当前有效数据修复本地标的池。');
+        } catch (error) { storage = candidateStorage; storageCorrupt = Boolean(candidateStorage); poolState = { version: 1, activeId: '', items: [] }; setStorageWarning(candidateStorage ? '本地标的池数据无法识别，当前使用空池；只有明确保存时才会覆盖损坏数据。' : '浏览器未允许读取本地标的池，当前记录只保留在本次会话中。'); }
+      }
+
+      function persistPool(allowRepair) {
+        if (!storage) { renderStorageNotice(); return false; }
+        if (storageCorrupt && !allowRepair) return false;
+        try { storage.setItem(STORAGE_KEY, JSON.stringify(poolState)); storageCorrupt = false; setStorageWarning(''); return true; }
+        catch (error) { setStorageWarning('浏览器未能保存标的池，当前记录只保留在本次会话中。'); return false; }
+      }
+
+      function evaluateContextState(state) {
+        const values = [state.market, state.sector, state.instrument];
+        if (values.some((value) => value === 'unset')) return { kind: 'neutral', status: '环境未确认', message: '先分别判断大盘、板块和个股结构。这里的提示只用于提醒风险，不会改变黄金分割计算。', title: '环境未确认。', detail: '先完成大盘、板块和个股三层判断。' };
+        if (values.some((value) => value === 'adverse')) { const adverseScopes = Object.keys(state).filter((scope) => state[scope] === 'adverse').map((scope) => contextLabels[scope]); return { kind: 'danger', status: '环境逆风', message: adverseScopes.join('、') + '偏弱，不要把回撤位直接当作接人点。', title: '环境逆风。', detail: '回撤位仅作复盘参考，先等环境重新配合。' }; }
+        if (values.every((value) => value === 'supportive')) return { kind: 'success', status: '环境配合，可继续观察', message: '三层环境均偏顺风，但仍需等待价格、量能和结构确认。', title: '环境配合。', detail: '仍需等待价格与承接确认，价位不是自动买点。' };
+        return { kind: 'warning', status: '环境未共振，继续观察', message: '没有明显逆风，但仍有中性层级，先观察大盘、板块与个股是否同步。', title: '环境未共振。', detail: '继续观察三层环境是否同步，不急于执行计划。' };
+      }
+      function evaluateContext() { return evaluateContextState(contextState); }
+      function renderContext() {
+        qsa('.context-choice').forEach((button) => button.setAttribute('aria-pressed', String(contextState[button.dataset.scope] === button.dataset.value)));
+        const context = evaluateContext(); $('contextSummary').className = 'context-summary fibo-card is-' + context.kind; $('contextStatus').textContent = context.status; $('contextMessage').textContent = context.message; $('resultContextNote').className = 'result-context-note is-' + context.kind; $('resultContextTitle').textContent = context.title; $('resultContextDetail').textContent = context.detail;
+      }
+
+      function setMarker(element, percent, label) { element.style.left = Math.max(0, Math.min(100, percent)) + '%'; if (label) element.querySelector('span').textContent = label; }
+      function validateInputs(options) {
+        const settings = options || {}; const anchorRaw = $('anchor').value.trim(); const closeRaw = $('close').value.trim(); const currentRaw = $('current').value.trim(); const anchor = Number(anchorRaw); const close = Number(closeRaw); const current = currentRaw === '' ? null : Number(currentRaw);
+        if (settings.requireLabel && !$('symbol').value.trim()) return { ok: false, message: '保存前请填写标的名称或代码。' };
+        if (!Number.isFinite(anchor) || anchor <= 0 || !Number.isFinite(close) || close <= 0) return { ok: false, message: '请填写大于 0 的下沿锚点和上涨日收盘价。' };
+        if (close <= anchor) return { ok: false, message: '收盘价应高于下沿锚点，才能计算上涨日回撤。' };
+        if (currentRaw !== '' && (!Number.isFinite(current) || current <= 0)) return { ok: false, message: '当前价格若填写，必须是大于 0 的有效数字。' };
+        return { ok: true, values: { anchor: anchor, close: close, current: current, symbol: $('symbol').value.trim() } };
+      }
+      function calculateFibonacci(values) {
+        const anchor = values.anchor; const close = values.close; const current = values.current; const symbol = values.symbol; const span = close - anchor; const level382 = close - span * .382; const level500 = close - span * .5; const level618 = close - span * .618; let currentZone = null;
+        if (Number.isFinite(current)) {
+          if (current > close) currentZone = { kind: 'neutral', label: '仍在强势区', title: '当前价高于上涨日收盘。', detail: '不追高，等待回踩或新的结构确认。' };
+          else if (current >= level382) currentZone = { kind: 'success', label: '浅回撤观察', title: '进入 38.2% 上方区域。', detail: '价格仍偏强，观察是否在计划价附近缩量企稳。' };
+          else if (current >= level500) currentZone = { kind: 'success', label: '接近主计划价', title: '已触及 38.2% 附近。', detail: '先验证承接，再考虑分批；不要一次性押注。' };
+          else if (current >= level618) currentZone = { kind: 'warning', label: '深回撤警戒', title: '位于 50%—61.8% 区间。', detail: '强弱分界已被跌穿，仓位和逻辑都要重新评估。' };
+          else currentZone = { kind: 'danger', label: '跌破深回撤', title: '已跌破 61.8% 深回撤位。', detail: '把它当作复盘信号，而不是自动补仓信号。' };
+        }
+        return { anchor: anchor, close: close, current: current, symbol: symbol, level382: level382, level500: level500, level618: level618, currentZone: currentZone };
+      }
+      function clearReadout() {
+        $('goldenValue').textContent = '—'; $('level382').textContent = '—'; $('level500').textContent = '—'; $('level618').textContent = '—'; $('railLow').textContent = '下沿 —'; $('railHigh').textContent = '收盘 —'; $('railSegment').style.left = '0%'; $('railSegment').style.width = '0%'; Object.keys(markers).forEach((key) => { setMarker(markers[key], key === 'close' ? 100 : 0, key === 'm618' ? '61.8%' : key === 'm500' ? '50%' : key === 'm382' ? '38.2%' : '收盘'); markers[key].style.display = 'none'; }); $('resultBadge').className = 'result-badge is-neutral'; $('resultBadge').textContent = '等待输入'; $('reading').className = 'reading'; $('readingTitle').textContent = '先输入上涨日数据。'; $('readingDetail').textContent = '生成结果后，这里会显示当前价格所处区间。';
+      }
+      function renderReadout(result) {
+        $('goldenValue').textContent = fmt(result.level382); $('level382').textContent = fmt(result.level382); $('level500').textContent = fmt(result.level500); $('level618').textContent = fmt(result.level618); $('railLow').textContent = '下沿 ' + fmt(result.anchor); $('railHigh').textContent = '收盘 ' + fmt(result.close); setMarker(markers.m618, 38.2, '61.8%'); setMarker(markers.m500, 50, '50%'); setMarker(markers.m382, 61.8, '38.2%'); setMarker(markers.close, 100, '收盘'); markers.m618.style.display = 'block'; markers.m500.style.display = 'block'; markers.m382.style.display = 'block'; markers.close.style.display = 'block'; $('railSegment').style.left = '0%'; $('railSegment').style.width = '61.8%';
+        const zone = result.currentZone; const title = zone ? zone.title : (result.symbol || '该标的') + ' 已生成分层价位。'; const detail = zone ? zone.detail : '先看 38.2% 附近的承接，再核对环境状态。'; $('resultBadge').className = 'result-badge is-' + (zone ? zone.kind : 'neutral'); $('resultBadge').textContent = zone ? zone.label : '已生成观察位'; $('reading').className = 'reading' + (zone && zone.kind !== 'neutral' ? ' is-' + zone.kind : ''); $('readingTitle').textContent = title; $('readingDetail').textContent = detail;
+        if (Number.isFinite(result.current)) { const currentPercent = ((result.close - result.current) / (result.close - result.anchor)) * 100; markers.current.style.display = 'block'; setMarker(markers.current, currentPercent, '当前'); } else markers.current.style.display = 'none';
+      }
+      function calculate(options) {
+        const settings = options || {}; const validation = validateInputs(); $('calcError').textContent = '';
+        if (!validation.ok) { $('calcError').textContent = validation.message; hasResult = false; clearReadout(); return false; }
+        renderReadout(calculateFibonacci(validation.values)); hasResult = true;
+        if (settings.focusResult && window.matchMedia('(max-width:768px)').matches) { setActiveStep('calculator'); window.setTimeout(() => { $('resultPanel').focus({ preventScroll: true }); $('resultPanel').scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' }); }, 0); }
+        return true;
+      }
+
+      function readDraftSnapshot() {
+        const validation = validateInputs({ requireLabel: true }); if (!validation.ok) return { ok: false, message: validation.message }; const recordDate = $('recordDate').value; if (!validDate(recordDate)) return { ok: false, message: '请填写有效的记录日期。' };
+        return { ok: true, snapshot: { label: $('symbol').value.trim(), anchorType: $('calcForm').querySelector('input[name="anchorType"]:checked').value, anchor: validation.values.anchor, close: validation.values.close, current: validation.values.current, context: cloneContext(contextState), recordDate: recordDate } };
+      }
+      function readRawSnapshot() {
+        const anchorRaw = $('anchor').value.trim(); const closeRaw = $('close').value.trim(); const currentRaw = $('current').value.trim(); return { label: $('symbol').value.trim(), anchorType: $('calcForm').querySelector('input[name="anchorType"]:checked').value, anchor: anchorRaw === '' ? null : Number(anchorRaw), close: closeRaw === '' ? null : Number(closeRaw), current: currentRaw === '' ? null : Number(currentRaw), context: cloneContext(contextState), recordDate: $('recordDate').value || todayLocal() };
+      }
+      function isDraftDirty() { return comparable(readRawSnapshot()) !== comparable(baselineSnapshot || emptySnapshot()); }
+      function updateDraftIndicator() { const item = editingId ? poolState.items.find((entry) => entry.id === editingId) : null; $('poolDraftStatus').textContent = item ? '正在编辑：' + item.label + (isDraftDirty() ? ' · 有未保存修改' : '') : (isDraftDirty() ? '新建标的 · 有未保存修改' : '新建标的 · 尚未保存'); }
+      function applyBlankForm() {
+        $('calcForm').reset(); $('symbol').value = ''; $('recordDate').value = todayLocal(); qsa('input[name="anchorType"]').forEach((radio) => { radio.checked = radio.value === 'open'; }); $('anchorHint').textContent = '普通上涨日使用开盘价；若当天跳空高开，可切换到前收价。'; $('calcError').textContent = ''; $('formStatus').textContent = ''; contextState.market = 'unset'; contextState.sector = 'unset'; contextState.instrument = 'unset'; editingId = null; hasResult = false; clearReadout(); renderContext(); baselineSnapshot = readRawSnapshot(); updateDraftIndicator();
+      }
+      function applyItem(item) {
+        $('symbol').value = item.label; $('recordDate').value = item.recordDate; qsa('input[name="anchorType"]').forEach((radio) => { radio.checked = radio.value === item.anchorType; }); $('anchor').value = item.anchor == null ? '' : String(item.anchor); $('close').value = item.close == null ? '' : String(item.close); $('current').value = item.current == null ? '' : String(item.current); $('anchorHint').textContent = item.anchorType === 'prev' ? '已按跳空上涨处理：下沿使用前一日收盘价。' : '普通上涨日使用开盘价；若当天跳空高开，可切换到前收价。'; contextState.market = item.context.market; contextState.sector = item.context.sector; contextState.instrument = item.context.instrument; editingId = item.id; poolState.activeId = item.id; baselineSnapshot = normalizedSnapshot(item); $('calcError').textContent = ''; $('formStatus').textContent = ''; const validation = validateInputs(); if (validation.ok) { renderReadout(calculateFibonacci(validation.values)); hasResult = true; } else { hasResult = false; clearReadout(); $('calcError').textContent = '这条记录的价格数据不完整，请补充后重新生成。'; } renderContext(); updateDraftIndicator();
+      }
+
+      function setActiveStep(step, options) {
+        const settings = options || {}; activeStep = ['environment', 'calculator', 'pool'].includes(step) ? step : 'environment'; const mobile = window.matchMedia('(max-width:768px)').matches; qsa('.mobile-step-panel').forEach((panel) => { const active = !mobile || panel.id === (activeStep === 'environment' ? 'environmentPanel' : activeStep === 'calculator' ? 'calculatorPanel' : 'poolPanel'); panel.classList.toggle('is-active', active); panel.setAttribute('aria-hidden', String(!active)); }); qsa('.mobile-bottom-nav button').forEach((button) => { button.setAttribute('aria-selected', String(button.dataset.stepTarget === activeStep)); });
+        if (mobile && settings.focus) { const panel = $(activeStep === 'environment' ? 'environmentPanel' : activeStep === 'calculator' ? 'calculatorPanel' : 'poolPanel'); const heading = panel.querySelector('h3,h4'); window.setTimeout(() => { panel.scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' }); if (heading) { heading.setAttribute('tabindex', '-1'); heading.focus({ preventScroll: true }); } }, 0); }
+      }
+      function syncResponsiveState() { const mobile = window.matchMedia('(max-width:768px)').matches; $('rulesDetails').open = !mobile; setActiveStep(activeStep); }
+
+      function renderPool() {
+        const list = $('poolList'); list.replaceChildren(); $('poolCount').textContent = poolState.items.length + ' 个'; $('poolEmpty').hidden = poolState.items.length > 0;
+        poolState.items.forEach((item) => {
+          const article = document.createElement('article'); article.className = 'pool-item' + (item.id === poolState.activeId ? ' is-active' : ''); article.dataset.id = item.id;
+          const top = document.createElement('div'); top.className = 'pool-item__top'; const name = document.createElement('strong'); name.className = 'pool-item__name'; name.textContent = item.label; const date = document.createElement('span'); date.className = 'pool-item__date'; date.textContent = displayDate(item.recordDate); top.append(name, date);
+          const meta = document.createElement('div'); meta.className = 'pool-item__meta'; meta.textContent = '锚点 ' + fmt(item.anchor) + ' · 收盘 ' + fmt(item.close) + ' · 当前 ' + fmt(item.current);
+          const levels = document.createElement('div'); levels.className = 'pool-item__meta'; if (Number.isFinite(item.anchor) && Number.isFinite(item.close) && item.close > item.anchor) { const result = calculateFibonacci({ anchor: item.anchor, close: item.close, current: item.current, symbol: item.label }); levels.textContent = '38.2% ' + fmt(result.level382) + ' · 50% ' + fmt(result.level500) + ' · 61.8% ' + fmt(result.level618); } else levels.textContent = '价位尚未完整，加载后可继续补充。';
+          const context = evaluateContextState(item.context); const contextLine = document.createElement('div'); contextLine.className = 'pool-item__context is-' + context.kind; contextLine.textContent = context.status;
+          const actions = document.createElement('div'); actions.className = 'pool-item__actions'; const select = document.createElement('button'); select.className = 'fibo-button fibo-button--compact'; select.type = 'button'; select.dataset.action = 'select'; select.textContent = item.id === poolState.activeId ? '查看当前' : '切换查看'; select.setAttribute('aria-label', '切换查看 ' + item.label); const remove = document.createElement('button'); remove.className = 'fibo-button fibo-button--compact fibo-button--danger'; remove.type = 'button'; remove.dataset.action = 'delete'; remove.textContent = '删除'; remove.setAttribute('aria-label', '删除 ' + item.label); actions.append(select, remove);
+          article.append(top, meta, levels, contextLine, actions); list.append(article);
+        });
+        updateDraftIndicator(); renderStorageNotice();
+      }
+
+      function saveCurrentInstrument() {
+        const draft = readDraftSnapshot(); $('calcError').textContent = ''; $('formStatus').textContent = ''; if (!draft.ok) { $('calcError').textContent = draft.message; announce(draft.message); return false; }
+        const now = new Date().toISOString(); let item = editingId ? poolState.items.find((entry) => entry.id === editingId) : null; if (item) Object.assign(item, draft.snapshot, { updatedAt: now }); else { item = Object.assign({ id: makeId(), createdAt: now }, draft.snapshot, { updatedAt: now }); poolState.items.push(item); }
+        editingId = item.id; poolState.activeId = item.id; baselineSnapshot = normalizedSnapshot(item); const persisted = persistPool(true); renderPool(); calculate(); $('formStatus').textContent = persisted ? '已保存到本机标的池。' : '已保存到本次会话；浏览器未能持久化。'; announce('已保存：' + item.label + '，记录日期 ' + item.recordDate); return true;
+      }
+
+      function askConfirmation(title, message, acceptLabel) {
+        return new Promise((resolve) => { if (confirmResolver) confirmResolver(false); confirmResolver = resolve; confirmReturnFocus = document.activeElement; $('confirmTitle').textContent = title; $('confirmMessage').textContent = message; $('confirmAccept').textContent = acceptLabel || '继续'; $('confirmModal').hidden = false; window.setTimeout(() => $('confirmCancel').focus(), 0); });
+      }
+      function finishConfirmation(value) { if (!confirmResolver) return; const resolver = confirmResolver; confirmResolver = null; $('confirmModal').hidden = true; if (confirmReturnFocus && typeof confirmReturnFocus.focus === 'function') confirmReturnFocus.focus(); confirmReturnFocus = null; resolver(value); }
+      async function startNewInstrument() {
+        if (isDraftDirty()) { const confirmed = await askConfirmation('放弃未保存修改？', '当前表单有未保存修改，继续新建会丢弃这些修改。', '继续新建'); if (!confirmed) return; }
+        applyBlankForm(); poolState.activeId = ''; persistPool(); renderPool(); announce('已清空当前草稿，可以开始记录新的标的。'); setActiveStep('environment', { focus: true });
+      }
+      function resetCalculator() {
+        return startNewInstrument();
+      }
+      async function selectInstrument(id) {
+        const item = poolState.items.find((entry) => entry.id === id); if (!item) return; if (isDraftDirty()) { const confirmed = await askConfirmation('切换并放弃修改？', '当前表单有未保存修改，继续切换不会自动保存。', '继续切换'); if (!confirmed) return; }
+        applyItem(item); persistPool(); renderPool(); announce('已加载：' + item.label + '，记录日期 ' + item.recordDate); setActiveStep('calculator', { focus: true });
+      }
+      async function deleteInstrument(id) {
+        const item = poolState.items.find((entry) => entry.id === id); if (!item) return; const confirmed = await askConfirmation('删除这条记录？', '将删除“' + item.label + '”的最新快照，且无法从本页恢复。', '确认删除'); if (!confirmed) return;
+        const index = poolState.items.findIndex((entry) => entry.id === id); poolState.items = poolState.items.filter((entry) => entry.id !== id); if (editingId === id || poolState.activeId === id) { const next = poolState.items[index] || poolState.items[index - 1]; if (next) applyItem(next); else { poolState.activeId = ''; applyBlankForm(); } } persistPool(); renderPool(); announce('已删除：' + item.label);
+      }
+
+      qsa('.context-choice').forEach((button) => button.addEventListener('click', () => { contextState[button.dataset.scope] = button.dataset.value; renderContext(); updateDraftIndicator(); }));
+      qsa('input[name="anchorType"]').forEach((radio) => radio.addEventListener('change', () => { $('anchorHint').textContent = radio.value === 'prev' ? '已按跳空上涨处理：下沿使用前一日收盘价。' : '普通上涨日使用开盘价；若当天跳空高开，可切换到前收价。'; updateDraftIndicator(); }));
+      qsa('#symbol,#recordDate,#anchor,#close,#current').forEach((input) => input.addEventListener('input', () => { if (hasResult && ['symbol', 'anchor', 'close', 'current'].includes(input.id)) calculate(); updateDraftIndicator(); }));
+      $('recordDate').addEventListener('change', updateDraftIndicator);
+      $('calcForm').addEventListener('submit', (event) => { event.preventDefault(); calculate({ focusResult: true }); });
+      $('saveButton').addEventListener('click', saveCurrentInstrument); $('poolSaveButton').addEventListener('click', saveCurrentInstrument); $('resetButton').addEventListener('click', startNewInstrument); $('newInstrumentButton').addEventListener('click', startNewInstrument);
+      $('installButton').addEventListener('click', installApp);
+      $('heroStartButton').addEventListener('click', () => { setActiveStep('environment', { focus: true }); $('contextSection').scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' }); });
+      $('poolList').addEventListener('click', (event) => { const button = event.target.closest('button[data-action]'); if (!button) return; const item = button.closest('.pool-item'); if (!item) return; if (button.dataset.action === 'select') selectInstrument(item.dataset.id); if (button.dataset.action === 'delete') deleteInstrument(item.dataset.id); });
+      qsa('.mobile-bottom-nav button').forEach((button) => button.addEventListener('click', () => setActiveStep(button.dataset.stepTarget, { focus: true })));
+      $('confirmCancel').addEventListener('click', () => finishConfirmation(false)); $('confirmAccept').addEventListener('click', () => finishConfirmation(true)); $('confirmModal').addEventListener('click', (event) => { if (event.target === $('confirmModal')) finishConfirmation(false); }); document.addEventListener('keydown', (event) => { if ($('confirmModal').hidden) return; if (event.key === 'Escape') finishConfirmation(false); if (event.key === 'Tab') { const controls = [$('confirmCancel'), $('confirmAccept')]; const index = controls.indexOf(document.activeElement); event.preventDefault(); controls[(index + (event.shiftKey ? -1 : 1) + controls.length) % controls.length].focus(); } }); window.addEventListener('resize', syncResponsiveState);
+
+      if ('serviceWorker' in navigator && location.protocol !== 'file:') {
+        window.addEventListener('load', () => navigator.serviceWorker.register('./reverse-pickup-sw.js').catch(() => setInstallHint('离线组件未能启用；当前页面仍可正常使用。')));
+      }
+      updateInstallButton();
+      loadPool(); const activeItem = poolState.activeId ? poolState.items.find((item) => item.id === poolState.activeId) : null; if (activeItem) applyItem(activeItem); else applyBlankForm(); renderPool(); renderContext(); syncResponsiveState(); setActiveStep(activeItem ? 'calculator' : 'environment');
+    })();
+  </script>
+</body>
+</html>
