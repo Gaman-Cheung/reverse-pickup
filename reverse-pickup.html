@@ -91,6 +91,51 @@
     @media(max-width:768px){.context-group legend{grid-column:1;grid-row:1}.context-choices{grid-column:2;grid-row:1;width:100%}.context-choice{min-height:44px}.fibo-segmented-control>label>span{min-height:44px}}
     @media(max-width:650px){#markerClose span{display:none}.rail-ends{font-size:9px}}
     @media(max-width:380px){.app-shell{width:min(100% - 20px,var(--content-max-width))}.input-panel,.result-panel,.pool-panel{padding:var(--space-3)}.context-group{grid-template-columns:64px minmax(0,1fr)}.context-choice{min-width:58px;padding:0 6px}.hero h2{font-size:34px}.section-heading h3{font-size:var(--font-size-lg)}}
+    @media(max-width:768px){
+      .app-shell{padding-bottom:calc(108px + env(safe-area-inset-bottom))}
+      .mobile-bottom-nav{
+        right:auto;bottom:calc(10px + env(safe-area-inset-bottom));left:50%;
+        width:min(calc(100% - 24px),420px);padding:6px;gap:4px;
+        transform:translateX(-50%);isolation:isolate;
+        border:1px solid rgba(255,255,255,.72);border-radius:30px;
+        background:linear-gradient(125deg,rgba(255,255,255,.7),rgba(255,255,255,.3) 50%,rgba(223,239,255,.44)),rgba(248,249,250,.36);
+        box-shadow:0 18px 48px rgba(23,35,55,.2),0 3px 12px rgba(23,35,55,.1),inset 0 1px 0 rgba(255,255,255,.9),inset 0 -1px 0 rgba(255,255,255,.3);
+        -webkit-backdrop-filter:blur(28px) saturate(190%);backdrop-filter:blur(28px) saturate(190%);
+      }
+      .mobile-bottom-nav::before{
+        content:"";position:absolute;inset:1px;z-index:0;pointer-events:none;border-radius:29px;
+        background:radial-gradient(circle at 18% 0,rgba(255,255,255,.88),transparent 35%),radial-gradient(circle at 88% 100%,rgba(177,218,255,.22),transparent 42%);
+      }
+      .mobile-bottom-nav::after{
+        content:"";position:absolute;top:2px;right:26px;left:26px;z-index:0;height:1px;pointer-events:none;
+        background:linear-gradient(90deg,transparent,rgba(255,255,255,.95),transparent);
+      }
+      .mobile-bottom-nav button{
+        position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;
+        min-height:54px;padding:5px 8px;overflow:hidden;border:1px solid transparent;border-radius:24px;
+        color:rgba(60,60,67,.72);font-size:11px;line-height:1.1;letter-spacing:.01em;
+        -webkit-tap-highlight-color:transparent;
+        transition:transform var(--duration-fast) var(--ease-standard),color var(--duration-base) var(--ease-standard),background var(--duration-base) var(--ease-standard),border-color var(--duration-base) var(--ease-standard),box-shadow var(--duration-base) var(--ease-standard);
+      }
+      .mobile-bottom-nav button::before{
+        content:"";position:absolute;inset:0;z-index:-1;opacity:0;pointer-events:none;border-radius:inherit;
+        background:radial-gradient(circle at 50% -20%,rgba(255,255,255,1),rgba(255,255,255,.56) 46%,rgba(224,240,255,.42));
+        transition:opacity var(--duration-base) var(--ease-standard);
+      }
+      .mobile-bottom-nav button svg{width:21px;height:21px;flex:0 0 21px;stroke:currentColor;filter:drop-shadow(0 1px 0 rgba(255,255,255,.72))}
+      .mobile-bottom-nav button span{position:relative;z-index:1}
+      .mobile-bottom-nav button:hover{background:rgba(255,255,255,.28);color:var(--color-text-secondary)}
+      .mobile-bottom-nav button:active{transform:scale(.96)}
+      .mobile-bottom-nav button[aria-selected="true"]{
+        border-color:rgba(255,255,255,.82);background:rgba(255,255,255,.42);color:#0a67d8;
+        box-shadow:0 8px 20px rgba(31,79,130,.14),inset 0 1px 0 rgba(255,255,255,.98),inset 0 -1px 0 rgba(132,184,237,.16);
+      }
+      .mobile-bottom-nav button[aria-selected="true"]::before{opacity:1}
+      .mobile-bottom-nav button:focus-visible{outline:3px solid rgba(10,103,216,.38);outline-offset:1px}
+    }
+    @supports not ((-webkit-backdrop-filter:blur(1px)) or (backdrop-filter:blur(1px))){
+      @media(max-width:768px){.mobile-bottom-nav{background:rgba(250,252,255,.94)}}
+    }
     @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;transition-duration:.01ms!important;animation-duration:.01ms!important;animation-iteration-count:1!important}}
   </style>
 </head>
@@ -187,9 +232,9 @@
   </main>
 
   <nav class="mobile-bottom-nav mobile-bottom-nav--workflow" id="mobileNav" role="tablist" aria-label="移动端工作流导航">
-    <button type="button" role="tab" data-step-target="environment" id="stepEnvironment" aria-controls="environmentPanel" aria-selected="true"><span aria-hidden="true">◌</span><span>环境</span></button>
-    <button type="button" role="tab" data-step-target="calculator" id="stepCalculator" aria-controls="calculatorPanel" aria-selected="false"><span aria-hidden="true">＋</span><span>计算</span></button>
-    <button type="button" role="tab" data-step-target="pool" id="stepPool" aria-controls="poolPanel" aria-selected="false"><span aria-hidden="true">▣</span><span>标的池</span></button>
+    <button type="button" role="tab" data-step-target="environment" id="stepEnvironment" aria-controls="environmentPanel" aria-selected="true"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M3.5 12h17M12 3.5c2.1 2.35 3.2 5.18 3.2 8.5s-1.1 6.15-3.2 8.5c-2.1-2.35-3.2-5.18-3.2-8.5S9.9 5.85 12 3.5Z"/></svg><span>环境</span></button>
+    <button type="button" role="tab" data-step-target="calculator" id="stepCalculator" aria-controls="calculatorPanel" aria-selected="false"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2.75" width="14" height="18.5" rx="3"/><path d="M8 6.5h8v3H8zM8.5 13h.01M12 13h.01M15.5 13h.01M8.5 17h.01M12 17h.01M15.5 17h.01"/></svg><span>计算</span></button>
+    <button type="button" role="tab" data-step-target="pool" id="stepPool" aria-controls="poolPanel" aria-selected="false"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 4.5h10.5A2.5 2.5 0 0 1 21 7v11a2.5 2.5 0 0 1-2.5 2.5H8A2.5 2.5 0 0 1 5.5 18V7A2.5 2.5 0 0 1 8 4.5Z"/><path d="M5.5 7H5a2 2 0 0 0-2 2v7.5a2 2 0 0 0 2 2h.5M9 9h8M9 13h8M9 17h5"/></svg><span>标的池</span></button>
   </nav>
 
   <div class="fibo-modal-backdrop" id="confirmModal" hidden>
