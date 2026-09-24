@@ -81,37 +81,58 @@
     .pool-panel{min-width:0}.pool-header{display:flex;align-items:flex-start;justify-content:space-between;gap:var(--space-3)}.pool-header h4{margin:var(--space-2) 0 0;font-size:var(--font-size-xl);line-height:var(--line-height-tight)}.pool-count{display:inline-flex;align-items:center;min-height:28px;padding:0 9px;border-radius:var(--radius-pill);background:var(--color-primary-soft);color:var(--color-primary);font-size:var(--font-size-xs);font-weight:var(--font-weight-bold)}.pool-current{margin:var(--space-4) 0;padding:var(--space-3);border:1px solid var(--color-border-subtle);border-radius:var(--radius-sm);background:var(--color-surface-subtle)}.pool-current strong{display:block;font-size:var(--font-size-sm)}.pool-current span{display:block;margin-top:3px;color:var(--color-text-tertiary);font-size:var(--font-size-xs)}.pool-actions{display:grid;grid-template-columns:1fr 1fr;gap:var(--space-2);margin-bottom:var(--space-4)}.pool-list{display:grid;gap:var(--space-2)}.pool-item{padding:var(--space-3);border:1px solid var(--color-border);border-radius:var(--radius-md);background:var(--color-surface);transition:border-color var(--duration-base) var(--ease-standard),box-shadow var(--duration-base) var(--ease-standard)}.pool-item.is-active{border-color:var(--color-primary);box-shadow:0 0 0 2px var(--color-primary-soft)}.pool-item__top{display:flex;align-items:flex-start;justify-content:space-between;gap:var(--space-2)}.pool-item__name{min-width:0;overflow:hidden;color:var(--color-text);font-size:var(--font-size-md);font-weight:var(--font-weight-semibold);text-overflow:ellipsis;white-space:nowrap}.pool-item__date{flex:0 0 auto;color:var(--color-text-tertiary);font-size:var(--font-size-2xs)}.pool-item__meta{display:grid;gap:3px;margin-top:var(--space-2);color:var(--color-text-tertiary);font-family:var(--font-family-mono);font-size:var(--font-size-2xs);line-height:1.4}.pool-item__context{display:flex;align-items:center;gap:5px;margin-top:var(--space-2);color:var(--color-text-secondary);font-size:var(--font-size-xs)}.pool-item__context::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--color-border)}.pool-item__context.is-success::before{background:var(--color-success)}.pool-item__context.is-warning::before{background:var(--color-warning)}.pool-item__context.is-danger::before{background:var(--color-danger)}.pool-item__actions{display:flex;gap:var(--space-2);margin-top:var(--space-3)}.pool-item__actions .fibo-button{flex:1;min-height:40px}.pool-empty{padding:var(--space-5) var(--space-3);border:1px dashed var(--color-border);border-radius:var(--radius-md);color:var(--color-text-tertiary);font-size:var(--font-size-sm);text-align:center}.pool-status{min-height:20px;margin:var(--space-3) 0 0;color:var(--color-success-text);font-size:var(--font-size-xs)}
     .rules-details{border:1px solid var(--color-border);border-radius:var(--radius-lg);background:var(--color-surface);box-shadow:var(--shadow-low)}.rules-details>summary{min-height:44px;padding:var(--space-4);cursor:pointer;color:var(--color-text);font-size:var(--font-size-md);font-weight:var(--font-weight-semibold)}.rules-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--space-3);padding:0 var(--space-4) var(--space-4)}.rule-card{min-height:166px;padding:var(--space-4);border:1px solid var(--color-border-subtle);border-radius:var(--radius-md);background:var(--color-surface-subtle)}.rule-index{color:var(--color-primary);font-family:var(--font-family-mono);font-size:var(--font-size-xs);font-weight:var(--font-weight-bold)}.rule-card h4{margin:var(--space-3) 0 var(--space-2);font-size:var(--font-size-md)}.rule-card p{margin:0;color:var(--color-text-secondary);font-size:var(--font-size-sm);line-height:var(--line-height-relaxed)}
     .footer{display:flex;justify-content:space-between;gap:var(--space-4);margin:var(--space-12) 0 var(--space-6);padding-top:var(--space-4);border-top:1px solid var(--color-border-subtle);color:var(--color-text-tertiary);font-size:var(--font-size-xs)}.footer strong{color:var(--color-text-secondary)}
+    .mobile-workflow-shell{display:none}
     .mobile-bottom-nav{display:none}
     .fibo-modal-backdrop{position:fixed;inset:0;z-index:var(--z-dialog);display:grid;place-items:center;padding:var(--space-4);background:rgba(32,33,36,.42)}.fibo-modal-backdrop[hidden]{display:none}.fibo-modal{width:min(100%,420px);border:1px solid var(--color-border);border-radius:var(--radius-lg);background:var(--color-surface);box-shadow:var(--shadow-card)}.fibo-modal__header{padding:var(--space-5) var(--space-5) 0}.fibo-modal__header h2{margin:0;font-size:var(--font-size-xl)}.fibo-modal__body{padding:var(--space-3) var(--space-5);color:var(--color-text-secondary);font-size:var(--font-size-sm);line-height:var(--line-height-relaxed)}.fibo-modal__body p{margin:0}.fibo-modal__footer{display:flex;justify-content:flex-end;gap:var(--space-2);padding:0 var(--space-5) var(--space-5)}
     @media(max-width:1200px){.calculator-grid{grid-template-columns:1fr}}
     @media(max-width:1100px){.hero{grid-template-columns:1fr}.hero{padding-top:var(--space-10)}.context-layout{grid-template-columns:1fr}.context-summary{min-height:0}}
     @media(max-width:768px){
-      html{scroll-behavior:auto}.app-shell{width:min(100% - 2 * var(--page-gutter-mobile),var(--content-max-width));padding-bottom:calc(78px + env(safe-area-inset-bottom))}.fibo-header{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:var(--space-3);padding-top:var(--space-4)}.fibo-header__logo{width:34px;height:34px;flex-basis:34px}.fibo-header__brand>span:last-child{font-size:var(--font-size-lg)}.fibo-header__actions .fibo-analysis-source{display:none}.fibo-header__reminder{grid-column:1 / -1;min-height:40px}.hero{display:block;padding:var(--space-8) 0 var(--space-4)}.hero h2{font-size:clamp(34px,11vw,50px)}.hero-copy{font-size:var(--font-size-base)}.hero-sequence{display:none}.hero-actions{margin-top:var(--space-4)}.section{margin-top:var(--space-6)}.section-heading{align-items:flex-start;flex-direction:column;gap:var(--space-1);margin-bottom:var(--space-3)}.section-heading h3{font-size:var(--font-size-xl)}.section-heading p{font-size:var(--font-size-xs)}.storage-notice{margin-bottom:var(--space-3);padding:var(--space-3)}.mobile-step-panel{display:none!important}.mobile-step-panel.is-active{display:block!important}.workspace-layout{display:block}.context-layout{display:block}.context-controls{display:grid;grid-template-columns:1fr;gap:var(--space-2);padding:var(--space-3)}.context-group{display:grid;grid-template-columns:72px minmax(0,1fr);gap:var(--space-2);align-items:center;padding:var(--space-2) 0;border-bottom:1px solid var(--color-border-subtle)}.context-group:last-child{border-bottom:0}.context-group legend{margin:0;font-size:var(--font-size-sm)}.context-group small{display:none}.context-choices{display:flex;gap:4px;min-width:0;padding:3px;overflow-x:auto;border:1px solid var(--color-border);border-radius:var(--radius-pill);background:var(--color-surface-subtle);scrollbar-width:none}.context-choices::-webkit-scrollbar{display:none}.context-choice{justify-content:center;min-width:64px;min-height:38px;padding:0 8px;border:0;border-radius:var(--radius-pill);background:transparent;font-size:var(--font-size-xs);white-space:nowrap}.context-choice::after{display:none}.context-choice:hover{background:var(--color-primary-soft)}.context-choice[aria-pressed="true"][data-value="supportive"],.context-choice[aria-pressed="true"][data-value="neutral"],.context-choice[aria-pressed="true"][data-value="adverse"]{border:0}.context-choice[aria-pressed="true"][data-value="supportive"]{background:var(--color-success-soft)}.context-choice[aria-pressed="true"][data-value="neutral"]{background:var(--color-surface-muted)}.context-choice[aria-pressed="true"][data-value="adverse"]{background:var(--color-danger-soft)}.context-summary{margin-top:var(--space-3);padding:var(--space-4);border-left:0;border-top:4px solid var(--color-border)}.context-summary.is-success{border-top-color:var(--color-success)}.context-summary.is-warning{border-top-color:var(--color-warning)}.context-summary.is-danger{border-top-color:var(--color-danger)}.context-summary p{min-height:0}.calculator-grid{display:block}.input-panel,.result-panel,.pool-panel{padding:var(--space-4)}.form-grid{grid-template-columns:1fr;gap:0}.actions{display:grid;grid-template-columns:1fr 1fr;margin-top:var(--space-4)}.actions .fibo-button--primary{grid-column:1 / -1}.actions .fibo-button{min-height:46px}.result-top{display:block}.result-badge{margin-top:var(--space-3)}.result-number{font-size:clamp(42px,15vw,64px)}.price-rail{margin-top:var(--space-8)}.level-row{grid-template-columns:72px minmax(0,1fr) auto;gap:var(--space-2)}.level-desc{display:none}.result-panel{margin-top:var(--space-3)}.pool-panel{margin-top:0}.pool-actions{position:sticky;top:var(--space-2);z-index:var(--z-sticky);padding:var(--space-2) 0;background:linear-gradient(var(--color-surface) 75%,transparent)}.pool-item__actions .fibo-button{min-height:44px}.rules-details{margin-top:var(--space-6)}.rules-grid{grid-template-columns:1fr;padding:0 var(--space-3) var(--space-3)}.rule-card{min-height:0}.footer{flex-direction:column;gap:var(--space-2);margin-top:var(--space-8);padding-bottom:0}.mobile-bottom-nav{position:fixed;right:0;bottom:0;left:0;z-index:var(--z-sticky);display:grid;grid-template-columns:repeat(3,1fr);gap:4px;padding:6px 10px calc(6px + env(safe-area-inset-bottom));border-top:1px solid var(--color-border);background:rgba(255,255,255,.94);box-shadow:0 -4px 18px rgba(32,33,36,.1);backdrop-filter:blur(14px)}.mobile-bottom-nav button{display:grid;place-items:center;gap:2px;min-height:var(--touch-target-min);padding:4px;border:0;border-radius:var(--radius-sm);background:transparent;color:var(--color-text-tertiary);font-size:var(--font-size-xs);font-weight:var(--font-weight-semibold)}.mobile-bottom-nav button span:first-child{font-size:18px;line-height:1}.mobile-bottom-nav button[aria-selected="true"]{background:var(--color-primary-soft);color:var(--color-primary-action)}
+      html{scroll-behavior:auto;overflow-x:hidden}.app-shell{width:min(100% - 2 * var(--page-gutter-mobile),var(--content-max-width));padding-bottom:calc(78px + env(safe-area-inset-bottom))}.fibo-header{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:var(--space-3);padding-top:var(--space-4)}.fibo-header__logo{width:34px;height:34px;flex-basis:34px}.fibo-header__brand>span:last-child{font-size:var(--font-size-lg)}.fibo-header__actions .fibo-analysis-source{display:none}.fibo-header__reminder{grid-column:1 / -1;min-height:40px}.hero{display:block;padding:var(--space-8) 0 var(--space-4)}.hero h2{font-size:clamp(34px,11vw,50px)}.hero-copy{font-size:var(--font-size-base)}.hero-sequence{display:none}.hero-actions{margin-top:var(--space-4)}.section{margin-top:var(--space-6)}.section-heading{align-items:flex-start;flex-direction:column;gap:var(--space-1);margin-bottom:var(--space-3)}.section-heading h3{font-size:var(--font-size-xl)}.section-heading p{font-size:var(--font-size-xs)}.storage-notice{margin-bottom:var(--space-3);padding:var(--space-3)}.mobile-step-panel{display:none!important}.mobile-step-panel.is-active{display:block!important}.workspace-layout{display:block}.context-layout{display:block}.context-controls{display:grid;grid-template-columns:1fr;gap:var(--space-2);padding:var(--space-3)}.context-group{display:grid;grid-template-columns:72px minmax(0,1fr);gap:var(--space-2);align-items:center;padding:var(--space-2) 0;border-bottom:1px solid var(--color-border-subtle)}.context-group:last-child{border-bottom:0}.context-group legend{margin:0;font-size:var(--font-size-sm)}.context-group small{display:none}.context-choices{display:flex;gap:4px;min-width:0;padding:3px;overflow-x:auto;border:1px solid var(--color-border);border-radius:var(--radius-pill);background:var(--color-surface-subtle);scrollbar-width:none}.context-choices::-webkit-scrollbar{display:none}.context-choice{justify-content:center;min-width:64px;min-height:38px;padding:0 8px;border:0;border-radius:var(--radius-pill);background:transparent;font-size:var(--font-size-xs);white-space:nowrap}.context-choice::after{display:none}.context-choice:hover{background:var(--color-primary-soft)}.context-choice[aria-pressed="true"][data-value="supportive"],.context-choice[aria-pressed="true"][data-value="neutral"],.context-choice[aria-pressed="true"][data-value="adverse"]{border:0}.context-choice[aria-pressed="true"][data-value="supportive"]{background:var(--color-success-soft)}.context-choice[aria-pressed="true"][data-value="neutral"]{background:var(--color-surface-muted)}.context-choice[aria-pressed="true"][data-value="adverse"]{background:var(--color-danger-soft)}.context-summary{margin-top:var(--space-3);padding:var(--space-4);border-left:0;border-top:4px solid var(--color-border)}.context-summary.is-success{border-top-color:var(--color-success)}.context-summary.is-warning{border-top-color:var(--color-warning)}.context-summary.is-danger{border-top-color:var(--color-danger)}.context-summary p{min-height:0}.calculator-grid{display:block}.input-panel,.result-panel,.pool-panel{padding:var(--space-4)}.form-grid{grid-template-columns:1fr;gap:0}.actions{display:grid;grid-template-columns:1fr 1fr;margin-top:var(--space-4)}.actions .fibo-button--primary{grid-column:1 / -1}.actions .fibo-button{min-height:46px}.result-top{display:block}.result-badge{margin-top:var(--space-3)}.result-number{font-size:clamp(42px,15vw,64px)}.price-rail{margin-top:var(--space-8)}.level-row{grid-template-columns:72px minmax(0,1fr) auto;gap:var(--space-2)}.level-desc{display:none}.result-panel{margin-top:var(--space-3)}.pool-panel{margin-top:0}.pool-actions{position:sticky;top:var(--space-2);z-index:var(--z-sticky);padding:var(--space-2) 0;background:linear-gradient(var(--color-surface) 75%,transparent)}.pool-item__actions .fibo-button{min-height:44px}.rules-details{margin-top:var(--space-6)}.rules-grid{grid-template-columns:1fr;padding:0 var(--space-3) var(--space-3)}.rule-card{min-height:0}.footer{flex-direction:column;gap:var(--space-2);margin-top:var(--space-8);padding-bottom:0}.mobile-bottom-nav{position:fixed;right:0;bottom:0;left:0;z-index:var(--z-sticky);display:grid;grid-template-columns:repeat(3,1fr);gap:4px;padding:6px 10px calc(6px + env(safe-area-inset-bottom));border-top:1px solid var(--color-border);background:rgba(255,255,255,.94);box-shadow:0 -4px 18px rgba(32,33,36,.1);backdrop-filter:blur(14px)}.mobile-bottom-nav button{display:grid;place-items:center;gap:2px;min-height:var(--touch-target-min);padding:4px;border:0;border-radius:var(--radius-sm);background:transparent;color:var(--color-text-tertiary);font-size:var(--font-size-xs);font-weight:var(--font-weight-semibold)}.mobile-bottom-nav button span:first-child{font-size:18px;line-height:1}.mobile-bottom-nav button[aria-selected="true"]{background:var(--color-primary-soft);color:var(--color-primary-action)}
     }
     @media(max-width:768px){.context-group legend{grid-column:1;grid-row:1}.context-choices{grid-column:2;grid-row:1;width:100%}.context-choice{min-height:44px}.fibo-segmented-control>label>span{min-height:44px}}
     @media(max-width:650px){#markerClose span{display:none}.rail-ends{font-size:9px}}
     @media(max-width:380px){.app-shell{width:min(100% - 20px,var(--content-max-width))}.input-panel,.result-panel,.pool-panel{padding:var(--space-3)}.context-group{grid-template-columns:64px minmax(0,1fr)}.context-choice{min-width:58px;padding:0 6px}.hero h2{font-size:34px}.section-heading h3{font-size:var(--font-size-lg)}}
     @media(max-width:768px){
       .app-shell{padding-bottom:calc(108px + env(safe-area-inset-bottom))}
+      body.mobile-workflow-mounted #contextSection,body.mobile-workflow-mounted #workspaceSection{display:none}
+      body.mobile-workflow-mounted .mobile-workflow-shell{display:block;margin-top:var(--space-6)}
+      .mobile-workflow-heading{margin-bottom:var(--space-3);overflow:hidden;will-change:transform,opacity}
+      .mobile-workflow-heading h3{margin:3px 0 2px;font-size:var(--font-size-xl);line-height:var(--line-height-tight)}
+      .mobile-workflow-heading p{margin:0;color:var(--color-text-tertiary);font-size:var(--font-size-xs)}
+      .mobile-workflow-stage{position:relative;width:100%;height:0;overflow:hidden;transition:height 260ms cubic-bezier(.32,.72,0,1);contain:layout paint}
+      .mobile-workflow-stage.is-switching{transition:none}
+      .mobile-workflow-track{display:flex;width:100%;align-items:flex-start;touch-action:pan-y;transform:translate3d(0,0,0);transition:transform 420ms cubic-bezier(.32,.72,0,1);will-change:transform}
+      .mobile-workflow-track.is-instant{transition:none!important}
+      .mobile-workflow-track>.mobile-step-panel{display:block!important;width:100%;min-width:100%;flex:0 0 100%;pointer-events:none}
+      .mobile-workflow-track>.mobile-step-panel.is-active{pointer-events:auto}
+      .mobile-workflow-track>#poolPanel{align-self:flex-start}
       .mobile-bottom-nav{
         right:auto;bottom:calc(10px + env(safe-area-inset-bottom));left:50%;
         width:min(calc(100% - 24px),420px);padding:6px;gap:4px;
         transform:translateX(-50%);isolation:isolate;
-        border:1px solid rgba(255,255,255,.72);border-radius:30px;
-        background:linear-gradient(125deg,rgba(255,255,255,.7),rgba(255,255,255,.3) 50%,rgba(223,239,255,.44)),rgba(248,249,250,.36);
-        box-shadow:0 18px 48px rgba(23,35,55,.2),0 3px 12px rgba(23,35,55,.1),inset 0 1px 0 rgba(255,255,255,.9),inset 0 -1px 0 rgba(255,255,255,.3);
-        -webkit-backdrop-filter:blur(28px) saturate(190%);backdrop-filter:blur(28px) saturate(190%);
+        border:1px solid rgba(255,255,255,.56);border-radius:30px;
+        background:linear-gradient(125deg,rgba(255,255,255,.6),rgba(255,255,255,.26) 50%,rgba(223,239,255,.38)),rgba(248,249,250,.3);
+        box-shadow:0 18px 48px rgba(23,35,55,.18),0 3px 12px rgba(23,35,55,.09),inset 0 1px 0 rgba(255,255,255,.76),inset 0 -1px 0 rgba(255,255,255,.2);
+        -webkit-backdrop-filter:blur(22px) saturate(175%);backdrop-filter:blur(22px) saturate(175%);
       }
       .mobile-bottom-nav::before{
         content:"";position:absolute;inset:1px;z-index:0;pointer-events:none;border-radius:29px;
-        background:radial-gradient(circle at 18% 0,rgba(255,255,255,.88),transparent 35%),radial-gradient(circle at 88% 100%,rgba(177,218,255,.22),transparent 42%);
+        background:radial-gradient(circle at 18% 0,rgba(255,255,255,.66),transparent 35%),radial-gradient(circle at 88% 100%,rgba(177,218,255,.16),transparent 42%);
       }
       .mobile-bottom-nav::after{
         content:"";position:absolute;top:2px;right:26px;left:26px;z-index:0;height:1px;pointer-events:none;
-        background:linear-gradient(90deg,transparent,rgba(255,255,255,.95),transparent);
+        background:linear-gradient(90deg,transparent,rgba(255,255,255,.76),transparent);
       }
+      .mobile-nav-indicator{
+        position:absolute;top:6px;left:6px;z-index:1;width:calc((100% - 20px)/3);height:54px;pointer-events:none;border:1px solid rgba(255,255,255,.68);border-radius:24px;
+        background:radial-gradient(circle at 50% -20%,rgba(255,255,255,.82),rgba(255,255,255,.48) 48%,rgba(224,240,255,.38));
+        box-shadow:0 8px 20px rgba(31,79,130,.12),inset 0 1px 0 rgba(255,255,255,.84),inset 0 -1px 0 rgba(132,184,237,.14);
+        transform:translate3d(0,0,0);transition:transform 420ms cubic-bezier(.32,.72,0,1);
+      }
+      .mobile-bottom-nav.is-step-calculator .mobile-nav-indicator{transform:translate3d(calc(100% + 4px),0,0)}
+      .mobile-bottom-nav.is-step-pool .mobile-nav-indicator{transform:translate3d(calc(200% + 8px),0,0)}
       .mobile-bottom-nav button{
-        position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;
+        position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;
         min-height:54px;padding:5px 8px;overflow:hidden;border:1px solid transparent;border-radius:24px;
         color:rgba(60,60,67,.72);font-size:11px;line-height:1.1;letter-spacing:.01em;
         -webkit-tap-highlight-color:transparent;
@@ -127,14 +148,13 @@
       .mobile-bottom-nav button:hover{background:rgba(255,255,255,.28);color:var(--color-text-secondary)}
       .mobile-bottom-nav button:active{transform:scale(.96)}
       .mobile-bottom-nav button[aria-selected="true"]{
-        border-color:rgba(255,255,255,.82);background:rgba(255,255,255,.42);color:#0a67d8;
-        box-shadow:0 8px 20px rgba(31,79,130,.14),inset 0 1px 0 rgba(255,255,255,.98),inset 0 -1px 0 rgba(132,184,237,.16);
+        border-color:transparent;background:transparent;color:#0a67d8;box-shadow:none;
       }
-      .mobile-bottom-nav button[aria-selected="true"]::before{opacity:1}
+      .mobile-bottom-nav button[aria-selected="true"]::before{opacity:0}
       .mobile-bottom-nav button:focus-visible{outline:3px solid rgba(10,103,216,.38);outline-offset:1px}
     }
     @supports not ((-webkit-backdrop-filter:blur(1px)) or (backdrop-filter:blur(1px))){
-      @media(max-width:768px){.mobile-bottom-nav{background:rgba(250,252,255,.94)}}
+      @media(max-width:768px){.mobile-bottom-nav{background:rgba(250,252,255,.86)}}
     }
     @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;transition-duration:.01ms!important;animation-duration:.01ms!important;animation-iteration-count:1!important}}
   </style>
@@ -168,6 +188,17 @@
       </aside>
     </section>
 
+    <section class="mobile-workflow-shell" id="mobileWorkflowShell" aria-labelledby="mobileWorkflowHeading">
+      <div class="mobile-workflow-heading" aria-live="polite">
+        <div class="panel-kicker" id="mobileWorkflowKicker">02 / MARKET CONTEXT</div>
+        <h3 id="mobileWorkflowHeading">先看环境，再看价位</h3>
+        <p id="mobileWorkflowDescription">手动判断，不接入实时行情</p>
+      </div>
+      <div class="mobile-workflow-stage" id="mobileWorkflowStage">
+        <div class="mobile-workflow-track is-instant" id="mobileWorkflowTrack"></div>
+      </div>
+    </section>
+
     <section class="section" id="contextSection" aria-labelledby="context-heading">
       <div class="section-heading"><div><div class="panel-kicker">02 / MARKET CONTEXT</div><h3 id="context-heading">先看环境，再看价位</h3></div><p>手动判断，不接入实时行情</p></div>
       <div class="mobile-step-panel is-active" id="environmentPanel" role="tabpanel" aria-labelledby="stepEnvironment" aria-hidden="false">
@@ -182,7 +213,7 @@
       </div>
     </section>
 
-    <section class="section" aria-labelledby="workspace-heading">
+    <section class="section" id="workspaceSection" aria-labelledby="workspace-heading">
       <div class="section-heading"><div><div class="panel-kicker">03 / CALCULATE &amp; SAVE</div><h3 id="workspace-heading">生成价位，保存一份可复查的记录</h3></div><p>每个标的只保留最新快照</p></div>
       <div class="workspace-layout">
         <div class="mobile-step-panel is-active" id="calculatorPanel" role="tabpanel" aria-labelledby="stepCalculator" aria-hidden="false">
@@ -231,7 +262,8 @@
     <footer class="footer"><span><strong>倒车接人计算器</strong> · 回撤观察工具</span><span>仅供学习与记录，不构成投资建议</span></footer>
   </main>
 
-  <nav class="mobile-bottom-nav mobile-bottom-nav--workflow" id="mobileNav" role="tablist" aria-label="移动端工作流导航">
+  <nav class="mobile-bottom-nav mobile-bottom-nav--workflow is-step-environment" id="mobileNav" role="tablist" aria-label="移动端工作流导航" aria-orientation="horizontal">
+    <span class="mobile-nav-indicator" aria-hidden="true"></span>
     <button type="button" role="tab" data-step-target="environment" id="stepEnvironment" aria-controls="environmentPanel" aria-selected="true"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M3.5 12h17M12 3.5c2.1 2.35 3.2 5.18 3.2 8.5s-1.1 6.15-3.2 8.5c-2.1-2.35-3.2-5.18-3.2-8.5S9.9 5.85 12 3.5Z"/></svg><span>环境</span></button>
     <button type="button" role="tab" data-step-target="calculator" id="stepCalculator" aria-controls="calculatorPanel" aria-selected="false"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2.75" width="14" height="18.5" rx="3"/><path d="M8 6.5h8v3H8zM8.5 13h.01M12 13h.01M15.5 13h.01M8.5 17h.01M12 17h.01M15.5 17h.01"/></svg><span>计算</span></button>
     <button type="button" role="tab" data-step-target="pool" id="stepPool" aria-controls="poolPanel" aria-selected="false"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 4.5h10.5A2.5 2.5 0 0 1 21 7v11a2.5 2.5 0 0 1-2.5 2.5H8A2.5 2.5 0 0 1 5.5 18V7A2.5 2.5 0 0 1 8 4.5Z"/><path d="M5.5 7H5a2 2 0 0 0-2 2v7.5a2 2 0 0 0 2 2h.5M9 9h8M9 13h8M9 17h5"/></svg><span>标的池</span></button>
@@ -255,6 +287,15 @@
       const contextLabels = { market: '大盘', sector: '板块', instrument: '个股' };
       const contextState = { market: 'unset', sector: 'unset', instrument: 'unset' };
       const markers = { m618: $('marker618'), m500: $('marker500'), m382: $('marker382'), close: $('markerClose'), current: $('markerCurrent') };
+      const STEP_ORDER = ['environment', 'calculator', 'pool'];
+      const STEP_META = {
+        environment: { kicker: '02 / MARKET CONTEXT', title: '先看环境，再看价位', description: '手动判断，不接入实时行情' },
+        calculator: { kicker: '03 / CALCULATE', title: '生成并检查观察价位', description: '输入数据后，结果会在同一页更新' },
+        pool: { kicker: '04 / INSTRUMENT POOL', title: '切换并复查标的', description: '保存最新快照，按日期快速回看' }
+      };
+      const stepPanels = { environment: $('environmentPanel'), calculator: $('calculatorPanel'), pool: $('poolPanel') };
+      const panelHomes = {};
+      STEP_ORDER.forEach((step) => { const marker = document.createComment(step + ' panel home'); stepPanels[step].parentNode.insertBefore(marker, stepPanels[step]); panelHomes[step] = marker; });
       let poolState = { version: 1, activeId: '', items: [] };
       let editingId = null;
       let baselineSnapshot = null;
@@ -266,6 +307,11 @@
       let confirmResolver = null;
       let confirmReturnFocus = null;
       let deferredInstallPrompt = null;
+      let mobileWorkflowMounted = false;
+      let workflowResizeObserver = null;
+      let workflowTransitionTimer = null;
+      let workflowHeadingAnimation = null;
+      const WORKFLOW_TRANSITION_MS = 420;
 
       const fmt = (value) => Number.isFinite(value) ? value.toFixed(2) : '—';
       const cloneContext = (state) => ({ market: state.market, sector: state.sector, instrument: state.instrument });
@@ -435,11 +481,128 @@
         $('symbol').value = item.label; $('recordDate').value = item.recordDate; qsa('input[name="anchorType"]').forEach((radio) => { radio.checked = radio.value === item.anchorType; }); $('anchor').value = item.anchor == null ? '' : String(item.anchor); $('close').value = item.close == null ? '' : String(item.close); $('current').value = item.current == null ? '' : String(item.current); $('anchorHint').textContent = item.anchorType === 'prev' ? '已按跳空上涨处理：下沿使用前一日收盘价。' : '普通上涨日使用开盘价；若当天跳空高开，可切换到前收价。'; contextState.market = item.context.market; contextState.sector = item.context.sector; contextState.instrument = item.context.instrument; editingId = item.id; poolState.activeId = item.id; baselineSnapshot = normalizedSnapshot(item); $('calcError').textContent = ''; $('formStatus').textContent = ''; const validation = validateInputs(); if (validation.ok) { renderReadout(calculateFibonacci(validation.values)); hasResult = true; } else { hasResult = false; clearReadout(); $('calcError').textContent = '这条记录的价格数据不完整，请补充后重新生成。'; } renderContext(); updateDraftIndicator();
       }
 
-      function setActiveStep(step, options) {
-        const settings = options || {}; activeStep = ['environment', 'calculator', 'pool'].includes(step) ? step : 'environment'; const mobile = window.matchMedia('(max-width:768px)').matches; qsa('.mobile-step-panel').forEach((panel) => { const active = !mobile || panel.id === (activeStep === 'environment' ? 'environmentPanel' : activeStep === 'calculator' ? 'calculatorPanel' : 'poolPanel'); panel.classList.toggle('is-active', active); panel.setAttribute('aria-hidden', String(!active)); }); qsa('.mobile-bottom-nav button').forEach((button) => { button.setAttribute('aria-selected', String(button.dataset.stepTarget === activeStep)); });
-        if (mobile && settings.focus) { const panel = $(activeStep === 'environment' ? 'environmentPanel' : activeStep === 'calculator' ? 'calculatorPanel' : 'poolPanel'); const heading = panel.querySelector('h3,h4'); window.setTimeout(() => { panel.scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' }); if (heading) { heading.setAttribute('tabindex', '-1'); heading.focus({ preventScroll: true }); } }, 0); }
+      function getWorkflowPanelHeight(step) {
+        const panel = stepPanels[step || activeStep];
+        return panel ? Math.ceil(panel.getBoundingClientRect().height) : 0;
       }
-      function syncResponsiveState() { const mobile = window.matchMedia('(max-width:768px)').matches; $('rulesDetails').open = !mobile; setActiveStep(activeStep); }
+      function syncMobileWorkflowHeight(step) {
+        if (!mobileWorkflowMounted) return;
+        const stage = $('mobileWorkflowStage');
+        if (stage.classList.contains('is-switching')) return;
+        const height = getWorkflowPanelHeight(step || activeStep);
+        if (height > 0) $('mobileWorkflowStage').style.height = height + 'px';
+      }
+      function mountMobileWorkflow() {
+        if (mobileWorkflowMounted) return;
+        const track = $('mobileWorkflowTrack');
+        track.classList.add('is-instant');
+        STEP_ORDER.forEach((step) => track.appendChild(stepPanels[step]));
+        document.body.classList.add('mobile-workflow-mounted');
+        mobileWorkflowMounted = true;
+        if (typeof ResizeObserver === 'function') {
+          workflowResizeObserver = new ResizeObserver((entries) => { if (entries.some((entry) => entry.target === stepPanels[activeStep])) syncMobileWorkflowHeight(); });
+          STEP_ORDER.forEach((step) => workflowResizeObserver.observe(stepPanels[step]));
+        }
+        window.requestAnimationFrame(() => { syncMobileWorkflowHeight(); window.requestAnimationFrame(() => track.classList.remove('is-instant')); });
+      }
+      function unmountMobileWorkflow() {
+        if (!mobileWorkflowMounted) return;
+        if (workflowTransitionTimer) { window.clearTimeout(workflowTransitionTimer); workflowTransitionTimer = null; }
+        if (workflowHeadingAnimation) { workflowHeadingAnimation.cancel(); workflowHeadingAnimation = null; }
+        if (workflowResizeObserver) { workflowResizeObserver.disconnect(); workflowResizeObserver = null; }
+        document.body.classList.remove('mobile-workflow-mounted');
+        STEP_ORDER.forEach((step) => {
+          const panel = stepPanels[step];
+          panelHomes[step].parentNode.insertBefore(panel, panelHomes[step].nextSibling);
+          panel.classList.add('is-active'); panel.setAttribute('aria-hidden', 'false'); panel.inert = false;
+        });
+        $('mobileWorkflowStage').style.height = '';
+        $('mobileWorkflowStage').classList.remove('is-switching');
+        $('mobileWorkflowTrack').style.transform = '';
+        $('mobileWorkflowTrack').classList.add('is-instant');
+        mobileWorkflowMounted = false;
+      }
+      function updateWorkflowHeading(previousStep, nextStep, instant) {
+        const meta = STEP_META[activeStep];
+        $('mobileWorkflowKicker').textContent = meta.kicker;
+        $('mobileWorkflowHeading').textContent = meta.title;
+        $('mobileWorkflowDescription').textContent = meta.description;
+        const heading = document.querySelector('.mobile-workflow-heading');
+        if (workflowHeadingAnimation) { workflowHeadingAnimation.cancel(); workflowHeadingAnimation = null; }
+        if (instant || previousStep === nextStep || !heading || typeof heading.animate !== 'function' || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+        const direction = STEP_ORDER.indexOf(nextStep) > STEP_ORDER.indexOf(previousStep) ? 1 : -1;
+        workflowHeadingAnimation = heading.animate([
+          { opacity: .32, transform: 'translate3d(' + (direction * 18) + 'px,0,0)' },
+          { opacity: 1, transform: 'translate3d(0,0,0)' }
+        ], { duration: 300, easing: 'cubic-bezier(.32,.72,0,1)' });
+        workflowHeadingAnimation.addEventListener('finish', () => { workflowHeadingAnimation = null; }, { once: true });
+      }
+      function setActiveStep(step, options) {
+        const settings = options || {};
+        const nextStep = STEP_ORDER.includes(step) ? step : 'environment';
+        const previousStep = activeStep;
+        const changed = nextStep !== previousStep;
+        const mobile = window.matchMedia('(max-width:768px)').matches;
+        if (mobile) mountMobileWorkflow();
+        const stage = $('mobileWorkflowStage');
+        const currentHeight = mobileWorkflowMounted ? Math.ceil(stage.getBoundingClientRect().height) : 0;
+        activeStep = nextStep;
+        STEP_ORDER.forEach((panelStep) => {
+          const panel = stepPanels[panelStep];
+          const active = !mobile || panelStep === activeStep;
+          panel.classList.toggle('is-active', active);
+          panel.setAttribute('aria-hidden', String(!active));
+          panel.inert = mobile && !active;
+        });
+        qsa('.mobile-bottom-nav button').forEach((button) => {
+          const selected = button.dataset.stepTarget === activeStep;
+          button.setAttribute('aria-selected', String(selected));
+          button.tabIndex = selected ? 0 : -1;
+        });
+        const nav = $('mobileNav');
+        STEP_ORDER.forEach((panelStep) => nav.classList.remove('is-step-' + panelStep));
+        nav.classList.add('is-step-' + activeStep);
+        updateWorkflowHeading(previousStep, activeStep, settings.instant || !changed);
+        if (mobileWorkflowMounted) {
+          const track = $('mobileWorkflowTrack');
+          const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+          if (workflowTransitionTimer) { window.clearTimeout(workflowTransitionTimer); workflowTransitionTimer = null; }
+          if (settings.instant || !changed || reducedMotion) {
+            stage.classList.remove('is-switching');
+            track.classList.add('is-instant');
+          } else {
+            const nextHeight = getWorkflowPanelHeight(activeStep);
+            stage.classList.add('is-switching');
+            stage.style.height = Math.max(currentHeight, nextHeight) + 'px';
+            track.classList.remove('is-instant');
+            void track.offsetWidth;
+          }
+          track.style.transform = 'translate3d(-' + (STEP_ORDER.indexOf(activeStep) * 100) + '%,0,0)';
+          if (settings.instant || !changed || reducedMotion) {
+            window.requestAnimationFrame(() => {
+              syncMobileWorkflowHeight();
+              window.requestAnimationFrame(() => track.classList.remove('is-instant'));
+            });
+          } else {
+            workflowTransitionTimer = window.setTimeout(() => {
+              workflowTransitionTimer = null;
+              stage.classList.remove('is-switching');
+              syncMobileWorkflowHeight();
+            }, WORKFLOW_TRANSITION_MS + 24);
+          }
+        }
+        if (mobile && settings.focus) {
+          const delay = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : WORKFLOW_TRANSITION_MS + 30;
+          window.setTimeout(() => { const panel = stepPanels[activeStep]; panel.setAttribute('tabindex', '-1'); panel.focus({ preventScroll: true }); }, delay);
+        }
+        if (settings.announce && changed) announce('已切换到' + STEP_META[activeStep].title + '。');
+      }
+      function syncResponsiveState() {
+        const mobile = window.matchMedia('(max-width:768px)').matches;
+        $('rulesDetails').open = !mobile;
+        if (mobile) mountMobileWorkflow(); else unmountMobileWorkflow();
+        setActiveStep(activeStep, { instant: true });
+      }
 
       function renderPool() {
         const list = $('poolList'); list.replaceChildren(); $('poolCount').textContent = poolState.items.length + ' 个'; $('poolEmpty').hidden = poolState.items.length > 0;
@@ -488,16 +651,31 @@
       $('calcForm').addEventListener('submit', (event) => { event.preventDefault(); calculate({ focusResult: true }); });
       $('saveButton').addEventListener('click', saveCurrentInstrument); $('poolSaveButton').addEventListener('click', saveCurrentInstrument); $('resetButton').addEventListener('click', startNewInstrument); $('newInstrumentButton').addEventListener('click', startNewInstrument);
       $('installButton').addEventListener('click', installApp);
-      $('heroStartButton').addEventListener('click', () => { setActiveStep('environment', { focus: true }); $('contextSection').scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' }); });
+      $('heroStartButton').addEventListener('click', () => {
+        const mobile = window.matchMedia('(max-width:768px)').matches;
+        setActiveStep('environment');
+        (mobile ? $('mobileWorkflowShell') : $('contextSection')).scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' });
+      });
       $('poolList').addEventListener('click', (event) => { const button = event.target.closest('button[data-action]'); if (!button) return; const item = button.closest('.pool-item'); if (!item) return; if (button.dataset.action === 'select') selectInstrument(item.dataset.id); if (button.dataset.action === 'delete') deleteInstrument(item.dataset.id); });
-      qsa('.mobile-bottom-nav button').forEach((button) => button.addEventListener('click', () => setActiveStep(button.dataset.stepTarget, { focus: true })));
+      qsa('.mobile-bottom-nav button').forEach((button) => {
+        button.addEventListener('click', () => setActiveStep(button.dataset.stepTarget, { announce: true }));
+        button.addEventListener('keydown', (event) => {
+          if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) return;
+          event.preventDefault();
+          const currentIndex = STEP_ORDER.indexOf(button.dataset.stepTarget);
+          const nextIndex = event.key === 'Home' ? 0 : event.key === 'End' ? STEP_ORDER.length - 1 : (currentIndex + (event.key === 'ArrowRight' ? 1 : -1) + STEP_ORDER.length) % STEP_ORDER.length;
+          const nextButton = $('mobileNav').querySelector('[data-step-target="' + STEP_ORDER[nextIndex] + '"]');
+          setActiveStep(STEP_ORDER[nextIndex], { announce: true });
+          nextButton.focus();
+        });
+      });
       $('confirmCancel').addEventListener('click', () => finishConfirmation(false)); $('confirmAccept').addEventListener('click', () => finishConfirmation(true)); $('confirmModal').addEventListener('click', (event) => { if (event.target === $('confirmModal')) finishConfirmation(false); }); document.addEventListener('keydown', (event) => { if ($('confirmModal').hidden) return; if (event.key === 'Escape') finishConfirmation(false); if (event.key === 'Tab') { const controls = [$('confirmCancel'), $('confirmAccept')]; const index = controls.indexOf(document.activeElement); event.preventDefault(); controls[(index + (event.shiftKey ? -1 : 1) + controls.length) % controls.length].focus(); } }); window.addEventListener('resize', syncResponsiveState);
 
       if ('serviceWorker' in navigator && location.protocol !== 'file:') {
         window.addEventListener('load', () => navigator.serviceWorker.register('./reverse-pickup-sw.js').catch(() => setInstallHint('离线组件未能启用；当前页面仍可正常使用。')));
       }
       updateInstallButton();
-      loadPool(); const activeItem = poolState.activeId ? poolState.items.find((item) => item.id === poolState.activeId) : null; if (activeItem) applyItem(activeItem); else applyBlankForm(); renderPool(); renderContext(); syncResponsiveState(); setActiveStep(activeItem ? 'calculator' : 'environment');
+      loadPool(); const activeItem = poolState.activeId ? poolState.items.find((item) => item.id === poolState.activeId) : null; if (activeItem) applyItem(activeItem); else applyBlankForm(); renderPool(); renderContext(); activeStep = activeItem ? 'calculator' : 'environment'; syncResponsiveState();
     })();
   </script>
 </body>
